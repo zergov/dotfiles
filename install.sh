@@ -5,8 +5,8 @@ dir=$PWD
 ln -sf $dir/.vimrc ~/.vimrc
 
 # .vim
-rm -rf ~/.vim
-ln -sf $dir/.vim ~/.vim
+rm -rf ~/.vim/
+ln -sf $dir/.vim/ ~/.vim
 
 # .bashrc
 ln -sf $dir/.bashrc ~/.bashrc

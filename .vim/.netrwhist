@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='/home/zgv/Documents/repos/MyConfig/env'
+let g:netrw_dirhist_2='/home/zgv/.mutt'
+let g:netrw_dirhist_3='/home/zgv/.mconfig/simpleFolder'
+let g:netrw_dirhist_4='/home/zgv/workspace/ncurse_test'
+let g:netrw_dirhist_5='/home/zgv/workspace/oauthFlow/.git'
+let g:netrw_dirhist_6='/home/zgv/workspace/oauthFlow'
+let g:netrw_dirhist_7='/home/zgv/workspace'
+let g:netrw_dirhist_8='/home/zgv'
