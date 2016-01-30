@@ -15,5 +15,6 @@ ln -sf $dir/.bashrc ~/.bashrc
 rm -rf ~/.config/awesome
 ln -sf $dir/.config/awesome ~/.config/awesome
 
+# atom
 rm -rf ~/.atom
 ln -sf $dir/.atom ~/.atom
