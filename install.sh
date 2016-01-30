@@ -14,3 +14,6 @@ ln -sf $dir/.bashrc ~/.bashrc
 # awesome WM
 rm -rf ~/.config/awesome
 ln -sf $dir/.config/awesome ~/.config/awesome
+
+rm -rf ~/.atom
+ln -sf $dir/.atom ~/.atom
