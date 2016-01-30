@@ -48,6 +48,7 @@ filetype plugin indent on    " required
 
 set nocompatible
 set hidden
+set incsearch
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	Color and fonts
