@@ -10,9 +10,6 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-" jedi-vim : A Python autocompletion for VIM
-Plugin 'davidhalter/jedi-vim'
-
 " CTRL-P for vim"
 Plugin 'ctrlpvim/ctrlp.vim'
 
@@ -27,6 +24,9 @@ Plugin 'tpope/vim-fugitive'
 
 " vim-surround "
 Plugin 'tpope/vim-surround'
+
+" python mode
+Plugin 'klen/python-mode'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -95,14 +95,16 @@ set nowrap
 "   python 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let python_highlight_all = 1
-set omnifunc=jedi#completions
+"set omnifunc=jedi#completions
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"   Javascript
+"   Pymode
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-
+let g:pymode_folding = 0
+let g:pymode_rope_extract_method_bind = '<C-c>rm'
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_highlight_self = g:pymode_syntax_all
+let g:pymode_rope_goto_definition_cmd = 'e'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   others
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
