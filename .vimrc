@@ -105,9 +105,15 @@ let g:pymode_rope_extract_method_bind = '<C-c>rm'
 let g:pymode_syntax_all = 1
 let g:pymode_syntax_highlight_self = g:pymode_syntax_all
 let g:pymode_rope_goto_definition_cmd = 'e'
+set completeopt=menu,preview
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   others
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" If you prefer the Omni-Completion tip window to close when a selection is
+" " made, these lines close it on movement in insert mode or when leaving
+" " insert mode
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " Airline powerbar auto enable
 let g:airline#extensions#tabline#enabled = 1
