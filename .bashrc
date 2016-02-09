@@ -116,8 +116,15 @@ if ! shopt -oq posix; then
   fi
 fi
 
-### Added by the Heroku Toolbelt
+# Add language switch
+alias ca='setxkbmap ca'
+alias us='setxkbmap us'
+
+# Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
-### Simple todo list 
+# Simple todo list 
 alias todo='vim /home/jlalande/.todolist'
+
+# lock the screen
+alias lock='gnome-screensaver-command -l'
