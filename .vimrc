@@ -28,6 +28,12 @@ Plugin 'tpope/vim-surround'
 " python mode
 Plugin 'klen/python-mode'
 
+" Jedi
+Plugin 'davidhalter/jedi-vim'
+
+"Emmet 
+Plugin 'mattn/emmet-vim'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -65,13 +71,11 @@ set encoding=utf-8
 set fileencoding=utf-8  " The encoding written to file.
 
 " pls "
-"set background=dark
-
+set background=dark
 set t_Co=256
 
 " use ondedark theme "
-colorscheme Tomorrow-Night
-
+colorscheme gruvbox
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	BackUp and shits

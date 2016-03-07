@@ -128,3 +128,9 @@ alias todo='vim /home/jlalande/.todolist'
 
 # lock the screen
 alias lock='gnome-screensaver-command -l'
+
+# ssh to desktop
+alias sshdesktop='ssh zgv-desktop.local'
+
+# ssh outbox
+alias sshoutbox='ssh jlalande@jlalande-PC.local'
