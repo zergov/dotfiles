@@ -10,7 +10,7 @@
 theme                               = {}
 
 theme.confdir                       = os.getenv("HOME") .. "/.config/awesome/themes/multicolor"
-theme.wallpaper                     = theme.confdir .. "/warty-final-ubuntu.png"
+theme.wallpaper                     = theme.confdir .. "/my_golden_afternoon_by_ether.jpg"
 
 theme.font                          = "Terminus 14"
 --theme.taglist_font                =
