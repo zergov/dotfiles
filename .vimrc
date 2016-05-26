@@ -7,6 +7,9 @@ call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
+" supertab
+Plugin 'ervandew/supertab'
+
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
@@ -105,10 +108,12 @@ let python_highlight_all = 1
 "   Pymode
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:pymode_folding = 0
+let g:pymode_lint = 1
 let g:pymode_rope_extract_method_bind = '<C-c>rm'
 let g:pymode_syntax_all = 1
 let g:pymode_syntax_highlight_self = g:pymode_syntax_all
 let g:pymode_rope_goto_definition_cmd = 'e'
+let g:pymode_trim_whitespaces = 1
 set completeopt=menu,preview
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   others
@@ -122,17 +127,20 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 " Airline powerbar auto enable
 let g:airline#extensions#tabline#enabled = 1
 
+" Make super tab use the autocomplete from the context.
+let g:SuperTabDefaultCompletionType = 'context'
+
 
 " Delete trailing white space on save
- func! DeleteTrailingWS()
-   exe "normal mz"
-     %s/\s\+$//ge
-       exe "normal `z"
-       endfunc
-       autocmd BufWrite *.py :call DeleteTrailingWS()
-       autocmd BufWrite *.js :call DeleteTrailingWS()
-       autocmd BufWrite *.html :call DeleteTrailingWS()
+" func! DeleteTrailingWS()
+"  exe "normal mz"
+"    %s/\s\+$//ge
+"      exe "normal `z"
+"      endfunc
+"      autocmd BufWrite *.js :call DeleteTrailingWS()
+"      autocmd BufWrite *.html :call DeleteTrailingWS()
 
+"autocmd BufWrite *.py :call DeleteTrailingWS()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Always show the status line
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -143,8 +151,7 @@ set laststatus=2
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set number
 
-map <F4> :! nosetests <CR>
-map <F9> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+set pastetoggle=<F2>
 
+" Run nosetests
+map <F4> :! nosetests <CR>
