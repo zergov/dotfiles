@@ -4,5 +4,6 @@
 
 .config/nvim/eclim
 .config/nvim/bundle
+.config/nvim/.netrwhist
 
 .ropeproject

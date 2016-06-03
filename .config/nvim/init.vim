@@ -50,9 +50,8 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
-"
-"
-"
+
+
 set termguicolors
 set background=dark
 
@@ -73,7 +72,6 @@ set ffs=unix,dos,mac
 " Use UTF-8 encoding
 set encoding=utf-8
 set fileencoding=utf-8  " The encoding written to file.
-
 
 " use gruvbox theme "
 colorscheme gruvbox
@@ -97,22 +95,6 @@ set cursorline
 set nowrap
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"   python 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let python_highlight_all = 1
-let g:python_host_skip_check = 1
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"   Pymode
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:pymode_folding = 0
-let g:pymode_lint = 1
-let g:pymode_rope_extract_method_bind = '<C-c>rm'
-let g:pymode_syntax_all = 1
-let g:pymode_syntax_highlight_self = g:pymode_syntax_all
-let g:pymode_rope_goto_definition_cmd = 'e'
-let g:pymode_trim_whitespaces = 1
-set completeopt=menu,preview
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   others
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " If you prefer the Omni-Completion tip window to close when a selection is
@@ -135,6 +117,3 @@ set relativenumber
 
 " Paste mode
 set pastetoggle=<F2>
-
-" Run nosetests
-map <F4> :! nosetests <CR>
