@@ -1,2 +1,5 @@
 .vim/bundle
+.vim/eclim
+.vim/.netrwhist
+
 .ropeproject

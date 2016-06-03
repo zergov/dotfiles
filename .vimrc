@@ -55,6 +55,10 @@ filetype plugin indent on    " required
 "
 "
 
+set termguicolors
+set shell=/bin/bash
+let g:python_host_skip_check = 1
+
 set nocompatible
 set hidden
 set incsearch
@@ -149,7 +153,7 @@ set laststatus=2
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	set line numbers
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set number
+set relativenumber
 
 set pastetoggle=<F2>
 

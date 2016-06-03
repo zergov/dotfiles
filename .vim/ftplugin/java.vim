@@ -85,5 +85,8 @@ nnoremap Zr :se formatoptions-=ro<CR>
 " Find declaration for symbol
 nnoremap <C-c>g :JavaSearchContext<CR>
 
+" Run program
+nnoremap <C-c>r :silent exec ":Java"<CR>
 
-
+" Javadoc build
+nnoremap <C-c>d :JavaDocComment<CR>
