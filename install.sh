@@ -1,12 +1,12 @@
-
 dir=$PWD
 
-# .vimrc
-ln -sf $dir/.vimrc ~/.vimrc
-
 # .vim
+ln -sf $dir/.vimrc ~/.vimrc
 rm -rf ~/.vim/
 ln -sf $dir/.vim/ ~/.vim
+
+# nvim
+ln -sf $dir/.config/nvim/ ~/.config/nvim
 
 # .bashrc
 ln -sf $dir/.bashrc ~/.bashrc
