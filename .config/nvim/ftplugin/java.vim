@@ -86,10 +86,13 @@ nnoremap Zr :se formatoptions-=ro<CR>
 nnoremap <C-c>g :JavaSearchContext<CR>
 
 " Run program
-nnoremap <C-c>r :silent exec ":Java"<CR>
+nnoremap <C-c>e :silent exec ":Java"<CR>
 
 " Javadoc build
 nnoremap <C-c>d :JavaDocComment<CR>
+
+" Java JUnit 
+nnoremap <C-c>t :JUnit *<CR>
 
 " Prevent errors related to Maven.
 let g:EclimMakeLCD=1
