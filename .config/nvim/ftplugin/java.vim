@@ -94,5 +94,8 @@ nnoremap <C-c>d :JavaDocComment<CR>
 " Java JUnit 
 nnoremap <C-c>t :JUnit *<CR>
 
+" Java auto import
+nnoremap <C-c>i :JavaImport<cr>
+
 " Prevent errors related to Maven.
 let g:EclimMakeLCD=1
