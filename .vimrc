@@ -55,7 +55,6 @@ filetype plugin indent on    " required
 "
 "
 
-set termguicolors
 set shell=/bin/bash
 let g:python_host_skip_check = 1
 

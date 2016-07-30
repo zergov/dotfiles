@@ -1,10 +1,11 @@
 " Vim syntax file
-" Language:     Python
-" Maintainer:   Dmitry Vasiliev <dima at hlabs dot org>
-" URL:          https://github.com/hdima/python-syntax
-" Last Change:  2013-11-18
-" Filenames:    *.py
-" Version:      3.3.6
+" Language:             Python
+" Current Maintainer:   Dmitry Vasiliev <dima at hlabs dot org>
+" Previous Maintainer:  Neil Schemenauer <nas at python dot ca>
+" URL:                  https://github.com/hdima/python-syntax
+" Last Change:          2015-11-01
+" Filenames:            *.py
+" Version:              3.6.0
 "
 " Based on python.vim (from Vim 6.1 distribution)
 " by Neil Schemenauer <nas at python dot ca>
@@ -24,13 +25,17 @@
 "
 "   Andrea Riciputi
 "   Anton Butanaev
+"   Antony Lee
 "   Caleb Adamantine
+"   David Briscoe
 "   Elizabeth Myers
+"   Ihor Gorobets
 "   Jeroen Ruigrok van der Werven
 "   John Eikenberry
+"   Joongi Kim
 "   Marc Weber
 "   Pedro Algarvio
-"   pydave at GitHub
+"   Victor Salgado
 "   Will Gray
 "   Yuri Habrusiev
 "
@@ -154,6 +159,9 @@ syn keyword pythonStatement     with
 syn keyword pythonStatement     def class nextgroup=pythonFunction skipwhite
 syn keyword pythonRepeat        for while
 syn keyword pythonConditional   if elif else
+" The standard pyrex.vim unconditionally removes the pythonInclude group, so
+" we provide a dummy group here to avoid crashing pyrex.vim.
+syn keyword pythonInclude       import
 syn keyword pythonImport        import
 syn keyword pythonException     try except finally
 syn keyword pythonOperator      and in is not or
@@ -166,24 +174,28 @@ if s:Python2Syntax()
     syn keyword pythonStatement  print
   endif
   syn keyword pythonImport      as
-  syn match   pythonFunction    "\%(\%(def\s\|class\s\|@\)\s*\)\@<=\h\%(\w\|\.\)*" contained nextgroup=pythonVars
-  syn region pythonVars start="(" end=")" contained contains=pythonParameters transparent keepend
-  syn match pythonParameters "[^,]*" contained skipwhite
+  syn match   pythonFunction    "[a-zA-Z_][a-zA-Z0-9_]*" display contained
 else
   syn keyword pythonStatement   as nonlocal None
   syn match   pythonStatement   "\<yield\s\+from\>" display
   syn keyword pythonBoolean     True False
-  syn match   pythonFunction    "\%(\%(def\s\|class\s\|@\)\s*\)\@<=\h\%(\w\|\.\)*" contained nextgroup=pythonVars
-  syn region pythonVars start="(" end=")" contained contains=pythonParameters transparent keepend
-  syn match pythonParameters "[^,]*" contained skipwhite
-  endif
+  syn match   pythonFunction    "\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*" display contained
+  syn keyword pythonStatement   await
+  syn match   pythonStatement   "\<async\s\+def\>" nextgroup=pythonFunction skipwhite
+  syn match   pythonStatement   "\<async\s\+with\>" display
+  syn match   pythonStatement   "\<async\s\+for\>" display
+endif
 
 "
 " Decorators (new in Python 2.4)
 "
 
 syn match   pythonDecorator	"@" display nextgroup=pythonDottedName skipwhite
-syn match   pythonDottedName "[a-zA-Z_][a-zA-Z0-9_]*\%(\.[a-zA-Z_][a-zA-Z0-9_]*\)*" display contained
+if s:Python2Syntax()
+  syn match   pythonDottedName "[a-zA-Z_][a-zA-Z0-9_]*\%(\.[a-zA-Z_][a-zA-Z0-9_]*\)*" display contained
+else
+  syn match   pythonDottedName "\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\%(\.\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\)*" display contained
+endif
 syn match   pythonDot        "\." display containedin=pythonDottedName
 
 "
@@ -550,9 +562,8 @@ if version >= 508 || !exists("did_python_syn_inits")
 
   HiLink pythonExClass          Structure
 
-  HiLink pythonParameters       Parameters
-
   delcommand HiLink
 endif
 
 let b:current_syntax = "python"
+

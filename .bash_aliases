@@ -33,3 +33,6 @@ alias vpnets='sudo openconnect https://accesvpn.etsmtl.ca'
 
 # VPN connect outbox
 alias vpnoutbox='sudo openconnect https://connect.outboxenterprises.com'
+
+# eclimd
+alias eclim='/opt/eclim/plugins/org.eclim_2.5.0/bin/eclimd'

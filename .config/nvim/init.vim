@@ -20,6 +20,7 @@ Plugin 'nvie/vim-flake8'
 
 " Air line powerbar "
 Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 "Fugitive git"
 Plugin 'tpope/vim-fugitive'
@@ -36,6 +37,12 @@ Plugin 'davidhalter/jedi-vim'
 "Emmet 
 Plugin 'mattn/emmet-vim'
 
+"papercolor theme"
+Plugin 'NLKNguyen/papercolor-theme'
+
+"NerdTree"
+Plugin 'scrooloose/nerdtree'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -51,9 +58,7 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-
 set termguicolors
-set background=dark
 
 set shell=/bin/bash
 set hidden
@@ -72,6 +77,8 @@ set ffs=unix,dos,mac
 " Use UTF-8 encoding
 set encoding=utf-8
 set fileencoding=utf-8  " The encoding written to file.
+
+set background=dark
 
 " use gruvbox theme "
 colorscheme gruvbox
@@ -105,6 +112,7 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " Airline powerbar auto enable
 let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='distinguished'
 
 " Make super tab use the autocomplete from the context.
 let g:SuperTabDefaultCompletionType = 'context'
@@ -117,3 +125,6 @@ set relativenumber
 
 " Paste mode
 set pastetoggle=<F2>
+
+" Open NERDTree
+map <C-n> :NERDTreeToggle<CR>
