@@ -37,30 +37,22 @@ Plugin 'davidhalter/jedi-vim'
 "Emmet 
 Plugin 'mattn/emmet-vim'
 
+" Syntastic
+Plugin 'scrooloose/syntastic'
+
+" vim-jsx
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
+
+" NerdTree
+Plugin 'scrooloose/nerdtree'
+
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-"
-"
-"
-
-set shell=/bin/bash
-let g:python_host_skip_check = 1
-
-set nocompatible
-set hidden
-set incsearch
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	Color and fonts
@@ -76,12 +68,10 @@ set ffs=unix,dos,mac
 set encoding=utf-8
 set fileencoding=utf-8  " The encoding written to file.
 
-" pls "
+" colorscheme "
+colorscheme gruvbox
 set background=dark
 set t_Co=256
-
-" use ondedark theme "
-colorscheme gruvbox
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	BackUp and shits
@@ -102,25 +92,13 @@ set cursorline
 set nowrap
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"   python 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let python_highlight_all = 1
-"set omnifunc=jedi#completions
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"   Pymode
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:pymode_folding = 0
-let g:pymode_lint = 1
-let g:pymode_rope_extract_method_bind = '<C-c>rm'
-let g:pymode_syntax_all = 1
-let g:pymode_syntax_highlight_self = g:pymode_syntax_all
-let g:pymode_rope_goto_definition_cmd = 'e'
-let g:pymode_trim_whitespaces = 1
-set completeopt=menu,preview
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   others
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set shell=/bin/bash
+set nocompatible
+set hidden
+set incsearch
+
 " If you prefer the Omni-Completion tip window to close when a selection is
 " " made, these lines close it on movement in insert mode or when leaving
 " " insert mode
@@ -133,28 +111,46 @@ let g:airline#extensions#tabline#enabled = 1
 " Make super tab use the autocomplete from the context.
 let g:SuperTabDefaultCompletionType = 'context'
 
-
-" Delete trailing white space on save
-" func! DeleteTrailingWS()
-"  exe "normal mz"
-"    %s/\s\+$//ge
-"      exe "normal `z"
-"      endfunc
-"      autocmd BufWrite *.js :call DeleteTrailingWS()
-"      autocmd BufWrite *.html :call DeleteTrailingWS()
-
-"autocmd BufWrite *.py :call DeleteTrailingWS()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Always show the status line
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set laststatus=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"	set line numbers
+"set line numbers
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set relativenumber
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"set paste mode to F2
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set pastetoggle=<F2>
 
-" Run nosetests
-map <F4> :! nosetests <CR>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Open NERDTree with CTRL n
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <C-n> :NERDTreeToggle<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"some syntastic settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_loc_list_height = 5
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+let g:syntastic_javascript_checkers = ['eslint']
+
+let g:syntastic_error_symbol = '❌'
+let g:syntastic_style_error_symbol = '⁉️'
+let g:syntastic_warning_symbol = '⚠️'
+let g:syntastic_style_warning_symbol = '💩'
+
+highlight link SyntasticErrorSign SignColumn
+highlight link SyntasticWarningSign SignColumn
+highlight link SyntasticStyleErrorSign SignColumn
+highlight link SyntasticStyleWarningSign SignColumn
