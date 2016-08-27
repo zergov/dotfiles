@@ -116,11 +116,13 @@ if ! shopt -oq posix; then
   fi
 fi
 
+PS1='[\u@\h \W$(__git_ps1 " (%s)")]\$ '
 
 # Makes cassandra cqlsh uses the system cassandra-engine
 export CQLSH_NO_BUNDLED=TRUE
 
 # Export ANDROID and JAVA path
 export ANDROID_HOME=/home/zgv/Android/Sdk
+export ANDROID_NDK=/home/zgv/Downloads/android-ndk-r10e
 export PATH=$PATH:/home/zgv/Android/Sdk/tools
 export JAVA_HOME=/usr/lib/jvm/java-8-oracle
