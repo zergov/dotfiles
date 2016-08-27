@@ -47,6 +47,12 @@ Plugin 'mxw/vim-jsx'
 " NerdTree
 Plugin 'scrooloose/nerdtree'
 
+" Tmuxline
+Plugin 'edkolev/tmuxline.vim'
+
+" Monokai theme
+Plugin 'crusoexia/vim-monokai'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -69,9 +75,8 @@ set encoding=utf-8
 set fileencoding=utf-8  " The encoding written to file.
 
 " colorscheme "
-colorscheme gruvbox
-set background=dark
 set t_Co=256
+colorscheme monokai
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	BackUp and shits
