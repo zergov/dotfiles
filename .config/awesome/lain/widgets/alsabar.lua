@@ -27,7 +27,7 @@ local setmetatable = setmetatable
 -- lain.widgets.alsabar
 local alsabar = {
     channel = "Master",
-    step    = "2%",
+    step    = "1%",
 
     colors = {
         background = beautiful.bg_normal,
@@ -104,6 +104,7 @@ local function worker(args)
 
     alsabar.cmd           = args.cmd or "amixer"
     alsabar.channel       = args.channel or alsabar.channel
+    alsabar.togglechannel = args.togglechannel
     alsabar.step          = args.step or alsabar.step
     alsabar.colors        = args.colors or alsabar.colors
     alsabar.notifications = args.notifications or alsabar.notifications
@@ -127,28 +128,31 @@ local function worker(args)
         -- Capture mixer control state:          [5%] ... ... [on]
         local volu, mute = string.match(mixer, "([%d]+)%%.*%[([%l]*)")
 
-        if volu == nil then
-            volu = 0
-            mute = "off"
+        -- HDMIs can have a channel different from Master for toggling mute
+        if alsabar.togglechannel then
+            mute = string.match(read_pipe(string.format("%s get %s", alsabar.cmd, alsabar.togglechannel)), "%[(%a+)%]")
         end
 
-        alsabar._current_level = tonumber(volu)
-        alsabar.bar:set_value(alsabar._current_level / 100)
-        if not mute and tonumber(volu) == 0 or mute == "off"
+        if (volu and tonumber(volu) ~= alsabar._current_level) or (mute and string.match(mute, "on") ~= alsabar._muted)
         then
-            alsabar._muted = true
-            alsabar.tooltip:set_text (" [Muted] ")
-            alsabar.bar:set_color(alsabar.colors.mute)
-        else
-            alsabar._muted = false
-            alsabar.tooltip:set_text(string.format(" %s:%s ", alsabar.channel, volu))
-            alsabar.bar:set_color(alsabar.colors.unmute)
-        end
+            alsabar._current_level = tonumber(volu) or alsabar._current_level
+            alsabar.bar:set_value(alsabar._current_level / 100)
+            if not mute and tonumber(volu) == 0 or mute == "off"
+            then
+                alsabar._muted = true
+                alsabar.tooltip:set_text (" [Muted] ")
+                alsabar.bar:set_color(alsabar.colors.mute)
+            else
+                alsabar._muted = false
+                alsabar.tooltip:set_text(string.format(" %s:%s ", alsabar.channel, volu))
+                alsabar.bar:set_color(alsabar.colors.unmute)
+            end
 
-        volume_now = {}
-        volume_now.level = tonumber(volu)
-        volume_now.status = mute
-        settings()
+            volume_now = {}
+            volume_now.level = tonumber(volu)
+            volume_now.status = mute
+            settings()
+        end
     end
 
     alsabar.bar:buttons (awful.util.table.join (

@@ -8,7 +8,8 @@
 
 local debug  = require("debug")
 
-local capi   = { timer = timer }
+local assert = assert
+local capi   = { timer = (type(timer) == 'table' and timer or require ("gears.timer")) }
 local io     = { open  = io.open,
                  lines = io.lines,
                  popen = io.popen }
@@ -49,11 +50,23 @@ end
 -- list/table if the file does not exist
 function helpers.lines_from(file)
   if not helpers.file_exists(file) then return {} end
-  lines = {}
+  local lines = {}
   for line in io.lines(file) do
     lines[#lines + 1] = line
   end
   return lines
+end
+
+-- match all lines from a file, returns an empty
+-- list/table if the file or match does not exist
+function helpers.lines_match(regexp, file)
+	local lines = {}
+	for index,line in pairs(helpers.lines_from(file)) do
+		if string.match(line, regexp) then
+			lines[index] = line
+		end
+	end
+	return lines
 end
 
 -- get first line of a file, return nil if
@@ -77,10 +90,13 @@ end
 
 helpers.timer_table = {}
 
-function helpers.newtimer(name, timeout, fun, nostart)
-    helpers.timer_table[name] = capi.timer({ timeout = timeout })
+function helpers.newtimer(_name, timeout, fun, nostart)
+    local name = timeout
+    if not helpers.timer_table[name] then
+        helpers.timer_table[name] = capi.timer({ timeout = timeout })
+        helpers.timer_table[name]:start()
+    end
     helpers.timer_table[name]:connect_signal("timeout", fun)
-    helpers.timer_table[name]:start()
     if not nostart then
         helpers.timer_table[name]:emit_signal("timeout")
     end

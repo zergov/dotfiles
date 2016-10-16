@@ -11,22 +11,22 @@ theme                                           = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/copland"
 theme.wallpaper                                 = theme.dir .. "/wall.png"
 
-theme.font                                      = "Tamsyn 10.5"
+theme.font                                      = "Tamsyn 16"
 theme.fg_normal                                 = "#BBBBBB"
 theme.fg_focus                                  = "#78A4FF"
 theme.bg_normal                                 = "#111111"
 theme.bg_focus                                  = "#111111"
 theme.fg_urgent                                 = "#000000"
 theme.bg_urgent                                 = "#FFFFFF"
-theme.border_width                              = 1
+theme.border_width                              = 0
 theme.border_normal                             = "#141414"
 theme.border_focus                              = "#93B6FF"
-theme.taglist_fg_focus                          = "#FFFFEF"
+theme.taglist_fg_focus                          = "#FFFFFF"
 theme.taglist_bg_focus                          = "#111111"
 theme.taglist_bg_normal                         = "#111111"
 theme.titlebar_bg_normal                        = "#191919"
 theme.titlebar_bg_focus                         = "#262626"
-theme.menu_height                               = "15"
+theme.menu_height                               = "20"
 theme.menu_width                                = "150"
 
 theme.tasklist_sticky                           = ""
@@ -90,7 +90,7 @@ theme.titlebar_maximized_button_focus_inactive  = theme.dir .. "/icons/titlebar/
 theme.titlebar_maximized_button_normal_inactive = theme.dir .. "/icons/titlebar/maximized_normal_inactive.png"
 
 -- lain related
-theme.useless_gap_width                         = 10
+theme.useless_gap_width                         = 0
 theme.layout_centerfair                         = theme.dir .. "/icons/centerfair.png"
 theme.layout_termfair                           = theme.dir .. "/icons/termfair.png"
 theme.layout_centerwork                         = theme.dir .. "/icons/centerwork.png"

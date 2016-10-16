@@ -1,17 +1,20 @@
-[<- widgets](https://github.com/copycat-killer/lain/wiki/Widgets)
+Shows in a textbox the current CPU usage, both in general and per core.
 
-Shows in a textbox the average CPU usage percent for a given amount of time.
-
-	mycpuusage = lain.widgets.cpu()
+```lua
+mycpuusage = lain.widgets.cpu()
+```
 
 ### input table
 
 Variable | Meaning | Type | Default
 --- | --- | --- | ---
-`timeout` | Refresh timeout seconds | int | 1
+`timeout` | Refresh timeout seconds | int | 2
 `settings` | User settings | function | empty function
 
-`settings` can use the string `cpu_now.usage`, which is the cpu use percentage.
+`settings` can use these strings:
+
+* `cpu_now.usage`, the general use percentage;
+* `cpu_now[i].usage`, the i-th core use percentage, with `i` starting from 1.
 
 ### output
 

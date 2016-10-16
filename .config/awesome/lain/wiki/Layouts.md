@@ -1,4 +1,3 @@
-Currently, there are **9** layouts.
 
     lain/layout
     .
@@ -8,26 +7,34 @@ Currently, there are **9** layouts.
     |-- cascadetile
     |-- centerwork
     |-- centerhwork
+    |-- centerworkd
     |-- uselessfair
     |-- uselesspiral
     `-- uselesstile
 
+Usage
+=====
+
 Just add your favourites to ``layouts`` table:
 
-    layouts =
-    {
-        ...
-        lain.layout.termfair,
-        lain.layout.uselesstile,
-        ...
-    }
+```lua
+layouts =
+{
+    --[...]
+   lain.layout.termfair,
+   lain.layout.uselesstile,
+   -- [...]
+}
+```
 
 Or set them on specific tags like this:
 
-	awful.layout.set(lain.layout.uselessfair, tags[1][7])
+```lua
+awful.layout.set(lain.layout.uselessfair, tags[1][7])
+```
 
 How do layouts work?
-=========================
+====================
 
 termfair
 --------
@@ -67,8 +74,10 @@ and `ncol` values in `awful.tag`, but you can set your own.
 
 For example, this sets `termfair` to 3 columns and at least 1 row:
 
-    lain.layout.termfair.nmaster = 3
-    lain.layout.termfair.ncol = 1
+```lua
+lain.layout.termfair.nmaster = 3
+lain.layout.termfair.ncol = 1
+```
 
 centerfair
 ----------
@@ -94,8 +103,10 @@ and `ncol` values in `awful.tag`, but you can set your own.
 
 For example:
 
-    lain.layout.centerfair.nmaster = 3
-    lain.layout.centerfair.ncol = 1
+```lua
+lain.layout.centerfair.nmaster = 3
+lain.layout.centerfair.ncol = 1
+```
 
 cascade
 -------
@@ -104,12 +115,16 @@ Cascade all windows of a tag.
 
 You can control the offsets by setting these two variables:
 
-	lain.layout.cascade.cascade_offset_x = 64
-	lain.layout.cascade.cascade_offset_y = 16
+```lua
+lain.layout.cascade.cascade_offset_x = 64
+lain.layout.cascade.cascade_offset_y = 16
+```
 
 The following reserves space for 5 windows:
 
-	lain.layout.cascade.nmaster = 5
+```lua
+lain.layout.cascade.nmaster = 5
+```
 
 That is, no window will get resized upon the creation of a new window,
 unless there's more than 5 windows.
@@ -130,11 +145,13 @@ and anything else means "don't overlap windows".
 
 Usage example:
 
-	lain.layout.cascadetile.cascade_offset_x = 2
-	lain.layout.cascadetile.cascade_offset_y = 32
-	lain.layout.cascadetile.extra_padding = 5
-    lain.layout.cascadetile.nmaster = 5
-    lain.layout.cascadetile.ncol = 1
+```lua
+lain.layout.cascadetile.cascade_offset_x = 2
+lain.layout.cascadetile.cascade_offset_y = 32
+lain.layout.cascadetile.extra_padding = 5
+lain.layout.cascadetile.nmaster = 5
+lain.layout.cascadetile.ncol = 1
+```
 
 `extra_padding` reduces the size of the master window if "overlapping
 slave column" is activated. This allows you to see if there are any
@@ -184,10 +201,12 @@ floating mode. **This is intentional**.
 You can set the order of the four auxiliary windows. This is the default
 configuration:
 
-	lain.layout.centerwork.top_left = 0
-	lain.layout.centerwork.top_right = 1
-	lain.layout.centerwork.bottom_left = 2
-	lain.layout.centerwork.bottom_right = 3
+```lua
+lain.layout.centerwork.top_left = 0
+lain.layout.centerwork.top_right = 1
+lain.layout.centerwork.bottom_left = 2
+lain.layout.centerwork.bottom_right = 3
+```
 
 This means: The bottom left slot will be occupied by the third window
 (not counting the main window). Suppose you want your windows to appear
@@ -208,10 +227,12 @@ in this order:
 
 This would require you to use these settings:
 
-	lain.layout.centerwork.top_left = 3
-	lain.layout.centerwork.top_right = 0
-	lain.layout.centerwork.bottom_left = 2
-	lain.layout.centerwork.bottom_right = 1
+```lua
+lain.layout.centerwork.top_left = 3
+lain.layout.centerwork.top_right = 0
+lain.layout.centerwork.bottom_left = 2
+lain.layout.centerwork.bottom_right = 1
+```
 
 *Please note:* If you use Awesome's default configuration, navigation in
 this layout may be very confusing. How do you get from the main window
@@ -219,30 +240,32 @@ to satellite ones depends on the order in which the windows are opened.
 Thus, use of `awful.client.focus.bydirection()` is suggested.
 Here's an example:
 
-	globalkeys = awful.util.table.join(
-        ...
-	    awful.key({ modkey }, "j",
-	        function()
-	            awful.client.focus.bydirection("down")
-	            if client.focus then client.focus:raise() end
-	        end),
-	    awful.key({ modkey }, "k",
-	        function()
-	            awful.client.focus.bydirection("up")
-	            if client.focus then client.focus:raise() end
-	        end),
-	    awful.key({ modkey }, "h",
-	        function()
-	            awful.client.focus.bydirection("left")
-	            if client.focus then client.focus:raise() end
-	        end),
-	    awful.key({ modkey }, "l",
-	        function()
-	            awful.client.focus.bydirection("right")
-	            if client.focus then client.focus:raise() end
-	        end),
-	    ...
-	)
+```lua
+globalkeys = awful.util.table.join(
+    -- [...]
+    awful.key({ modkey }, "j",
+        function()
+            awful.client.focus.bydirection("down")
+            if client.focus then client.focus:raise() end
+        end),
+    awful.key({ modkey }, "k",
+        function()
+            awful.client.focus.bydirection("up")
+            if client.focus then client.focus:raise() end
+        end),
+    awful.key({ modkey }, "h",
+        function()
+            awful.client.focus.bydirection("left")
+            if client.focus then client.focus:raise() end
+        end),
+    awful.key({ modkey }, "l",
+        function()
+            awful.client.focus.bydirection("right")
+            if client.focus then client.focus:raise() end
+        end),
+    -- [...]
+)
+```
 
 centerhwork
 -----------
@@ -251,6 +274,11 @@ Same as `centerwork`, except that the main
 window expands horizontally, and the 4 additional windows
 are put ontop/below it, thus using the huge vertical space
 much better. Useful if you have a screen turned 90°.
+
+centerworkd
+-----------
+
+Same as `centerwork`, except that this version fills the slave-columns regardless of how many slave-clients are present.
 
 uselessfair, uselesspiral & uselesstile
 ---------------------------------------
@@ -284,7 +312,9 @@ you have to add an item called `useless_gap_width` in your `theme.lua`.
 If it doesn't exist, the width will default to 0.
 Example:
 
-	theme.useless_gap_width = 10
+```lua
+theme.useless_gap_width = 10
+```
 
 `uselesstile` patches
 =====================
@@ -308,15 +338,16 @@ They are located in ``lain/icons/layout``.
 
 To use them, add lines to your ``theme.lua`` like this:
 
-	theme.lain_icons         = os.getenv("HOME") .. "/.config/awesome/lain/icons/layout/default/"
-	theme.layout_termfair    = theme.lain_icons .. "termfairw.png"
-	theme.layout_cascade     = theme.lain_icons .. "cascadew.png"
-	theme.layout_cascadetile = theme.lain_icons .. "cascadetilew.png"
-	theme.layout_centerwork  = theme.lain_icons .. "centerworkw.png"
+```lua
+theme.lain_icons         = os.getenv("HOME") .. 
+                           "/.config/awesome/lain/icons/layout/default/"
+theme.layout_termfair    = theme.lain_icons .. "termfairw.png"
+theme.layout_cascade     = theme.lain_icons .. "cascadew.png"
+theme.layout_cascadetile = theme.lain_icons .. "cascadetilew.png"
+theme.layout_centerwork  = theme.lain_icons .. "centerworkw.png"
+```
 
-Credits goes to [Nicolas Estibals](https://github.com/nestibal) for creating
+Credits go to [Nicolas Estibals](https://github.com/nestibal) for creating
 layout icons for default theme.
 
 You can use them as a template for your custom versions.
-
-[<- home](https://github.com/copycat-killer/lain/wiki)

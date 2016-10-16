@@ -17,11 +17,13 @@ You can feed `set_markup` with predefined arguments, see the sections for all th
 
 Here follows an example: 
 
-    mycpu = lain.widgets.cpu({
-        settings = function()
-            widget:set_markup("Cpu " .. cpu_now.usage)
-        end
-    })
+```lua
+mycpu = lain.widgets.cpu({
+    settings = function()
+        widget:set_markup("Cpu " .. cpu_now.usage)
+    end
+})
+```
 
 If you want to see more complex applications, check [awesome-copycats](https://github.com/copycat-killer/awesome-copycats).
 
@@ -47,6 +49,8 @@ Index
 - [mem](https://github.com/copycat-killer/lain/wiki/mem)
 - [mpd](https://github.com/copycat-killer/lain/wiki/mpd)
 - [net](https://github.com/copycat-killer/lain/wiki/net)
+- [pulseaudio](https://github.com/copycat-killer/lain/wiki/pulseaudio)
+- [pulsebar](https://github.com/copycat-killer/lain/wiki/pulsebar)
 - [sysload](https://github.com/copycat-killer/lain/wiki/sysload)
 - [temp](https://github.com/copycat-killer/lain/wiki/temp)
 - [weather](https://github.com/copycat-killer/lain/wiki/weather)
@@ -54,7 +58,7 @@ Index
 Users contributed
 ----------------
 
-- [ccurr](https://github.com/copycat-killer/lain/wiki/ccurr)
+- [gpmdp](https://github.com/copycat-killer/lain/wiki/gpmdp)
 - [kbdlayout](https://github.com/copycat-killer/lain/wiki/kbdlayout)
 - [moc](https://github.com/copycat-killer/lain/wiki/moc)
 - [redshift](https://github.com/copycat-killer/lain/wiki/redshift)

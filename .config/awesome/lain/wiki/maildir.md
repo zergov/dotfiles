@@ -1,5 +1,3 @@
-[<- widgets](https://github.com/copycat-killer/lain/wiki/Widgets)
-
 Shows maildirs status in a textbox.
 
 Maildirs are structured as follows:
@@ -22,7 +20,9 @@ therefore the widget checks whether there are files in the `new` directories.
 If there's new mails, the textbox will say something like "mail: bugs(3), system(1)", otherwise it says
 "no mail".
 
-	mymaildir = lain.widgets.maildir(args)
+```lua
+mymaildir = lain.widgets.maildir(args)
+```
 
 ### input table
 
@@ -39,7 +39,7 @@ Variable | Meaning | Type | Default
 
 ```lua
 mailwidget = lain.widgets.maildir({
-    external_mail_cmd = "mbsync -q ndev revthefox foxbnc foxdev",
+    external_mail_cmd = "mbsync -q account1 account2 account3",
     -- [...]
 })
 ```
