@@ -18,6 +18,12 @@ set cursorline
 set nowrap
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"	Set a marker at column 79 (PEP8)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set colorcolumn=79
+highlight ColorColumn guibg=grey
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	Jedi configuration
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FileType python setlocal completeopt-=preview
