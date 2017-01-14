@@ -1,10 +1,9 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	Colorscheme for Python files.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set background=dark
 syntax on
-colorscheme hemisu
-
+set background=dark
+" colorscheme hemisu
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	Tabs and indent

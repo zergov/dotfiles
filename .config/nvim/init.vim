@@ -1,7 +1,14 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"	nvim plugins
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 call plug#begin('~/.config/nvim/plugged')
 
 " CTRL-P : Fuzzy file, buffer, mru, tag, etc finder.
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+
+" Gruvbox.
+Plug 'morhetz/gruvbox'
 
 " Vim surround
 Plug 'tpope/vim-surround'
@@ -24,6 +31,29 @@ Plug 'davidhalter/jedi-vim'
 " Vim motion
 Plug 'easymotion/vim-easymotion'
 
+" Vim syntastic: Syntax checking hacks for vim
+Plug 'vim-syntastic/syntastic'
+
+" Emmet for vim
+Plug 'mattn/emmet-vim'
+
+" JSX vim "
+Plug 'mxw/vim-jsx'
+Plug 'pangloss/vim-javascript'
+
+" Base16 colorscheme "
+Plug 'chriskempson/base16-vim'
+
+" Ack for vim "
+Plug 'mileszs/ack.vim'
+
+" YouCompleteMe
+Plug 'Valloric/YouCompleteMe'
+
+" Tern for vim
+Plug 'ternjs/tern_for_vim'
+
+
 call plug#end()
 
 
@@ -42,8 +72,9 @@ set encoding=utf-8
 set fileencoding=utf-8  " The encoding written to file.
 
 " colorscheme "
-colorscheme monokai
+colorscheme gruvbox
 set termguicolors
+set background=dark
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	BackUp and shits
@@ -72,6 +103,11 @@ set hidden
 set incsearch
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   Copy and paste to clipboard
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set clipboard+=unnamedplus
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Always show the status line
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set laststatus=2
@@ -81,3 +117,9 @@ set laststatus=2
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <C-n> :NERDTreeToggle<CR>
 
+" Clear highlight on CR
+:nnoremap <CR> :nohlsearch<CR><CR>
+
+" Prevent Ack from opening first results of search
+cnoreabbrev Ack Ack!
+nnoremap <Leader>a :Ack!<Space>
