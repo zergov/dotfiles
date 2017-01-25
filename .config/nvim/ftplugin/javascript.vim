@@ -8,16 +8,16 @@ colorscheme gruvbox
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	Tabs and indent
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"set expandtab
-"set tabstop=8
-"set shiftwidth=4
-"set softtabstop=4
-"set autoindent
-"set cursorline
-"set nowrap
+set expandtab
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set autoindent
+set cursorline
+set nowrap
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"	Set a marker at column 
+"	Set a marker at column
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set colorcolumn=130
 highlight ColorColumn guibg=grey
