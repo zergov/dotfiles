@@ -53,6 +53,9 @@ Plug 'Valloric/YouCompleteMe'
 " Tern for vim
 Plug 'ternjs/tern_for_vim'
 
+" Better JSON syntax highlighting
+Plug 'elzr/vim-json'
+
 
 call plug#end()
 
@@ -123,3 +126,9 @@ map <C-n> :NERDTreeToggle<CR>
 " Prevent Ack from opening first results of search
 cnoreabbrev Ack Ack!
 nnoremap <Leader>a :Ack!<Space>
+
+" Clean trailling white spaces
+autocmd BufWritePre * %s/\s\+$//e
+
+" Prevent CTRL-P to search in those directories
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
