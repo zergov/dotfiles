@@ -9,7 +9,7 @@ set background=dark
 "	Tabs and indent
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set expandtab
-set tabstop=8
+set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set autoindent
@@ -33,3 +33,5 @@ let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = "<leader>n"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#rename_command = "<leader>r"
+
+let g:jedi#popup_on_dot = 1
