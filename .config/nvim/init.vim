@@ -53,8 +53,8 @@ Plug 'Valloric/YouCompleteMe'
 " Tern for vim
 Plug 'ternjs/tern_for_vim'
 
-" Better JSON syntax highlighting
-Plug 'elzr/vim-json'
+" Supertab!
+Plug 'ervandew/supertab'
 
 
 call plug#end()
@@ -90,7 +90,7 @@ set noswapfile
 "	Defaults Tabs and indent
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set expandtab
-set tabstop=8
+set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set autoindent
@@ -127,8 +127,13 @@ map <C-n> :NERDTreeToggle<CR>
 cnoreabbrev Ack Ack!
 nnoremap <Leader>a :Ack!<Space>
 
-" Clean trailling white spaces
-autocmd BufWritePre * %s/\s\+$//e
-
 " Prevent CTRL-P to search in those directories
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+
+" Disable YCM  ( we're using jedi )
+let g:ycm_filetype_specific_completion_to_disable = {
+      \ 'python': 1
+      \}
+
+" Supertab scroll from top to bottom
+let g:SuperTabDefaultCompletionType = "<c-n>"
