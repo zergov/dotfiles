@@ -7,6 +7,12 @@ xterm*charClass: 33:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48
 xterm*termName: xterm-color
 xterm*eightBitInput: false
 
+! allow copy and paste
+XTerm*selectToClipboard:true
+XTerm*VT100.Translations: #override \
+      Shift Ctrl<Key>V: insert-selection(CLIPBOARD) \n\ 
+      Shift Ctrl<Key>V: insert-selection(PRIMARY) \n\ 
+
 !BLK Cursor
 #define _color0        #000d18
 #define _color8        #000d18
