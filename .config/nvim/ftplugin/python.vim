@@ -22,6 +22,9 @@ set nowrap
 set colorcolumn=79
 highlight ColorColumn guibg=grey
 
+" Don't load youcomplete me
+let g:loaded_youcompleteme = 1
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	Jedi configuration
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -33,5 +36,3 @@ let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = "<leader>n"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#rename_command = "<leader>r"
-
-let g:jedi#popup_on_dot = 1
