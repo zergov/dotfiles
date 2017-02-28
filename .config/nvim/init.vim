@@ -26,6 +26,8 @@ Plug 'mileszs/ack.vim'
 Plug 'Valloric/YouCompleteMe'
 "Neomake
 Plug 'neomake/neomake'
+" BufExplorer | navigate in current buffers
+Plug 'jlanzarotta/bufexplorer'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	Python
@@ -54,6 +56,10 @@ Plug 'morhetz/gruvbox'
 " powerbar
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+" base16
+Plug 'chriskempson/base16-vim'
+" Vim lucius theme
+Plug 'jonathanfilip/vim-lucius'
 
 call plug#end()
 
@@ -75,7 +81,7 @@ set fileencoding=utf-8  " The encoding written to file.
 " colorscheme "
 set termguicolors
 set background=dark
-colorscheme Tomorrow-Night
+colorscheme base16-default-dark
 let g:airline_theme='oceanicnext'
 let g:javascript_plugin_flow = 1 "does not work in javascript.vim somehow
 
@@ -103,7 +109,18 @@ set nowrap
 set number
 set shell=/bin/bash
 set hidden
+
+augroup reload_vimrc " {
+    autocmd!
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END " }
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   Search
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set incsearch
+set ignorecase
+set smartcase
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   Copy and paste
@@ -119,6 +136,7 @@ nmap <Leader>c :lclose<CR>     " close location window
 nmap <Leader>, :ll<CR>         " go to current error/warning
 
 nmap <leader>s :w<cr>
+nmap <leader>z :BufExplorerHorizontalSplit<cr>
 " You know what this does..
 map q: :q
 
