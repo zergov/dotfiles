@@ -60,6 +60,10 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'chriskempson/base16-vim'
 " Vim lucius theme
 Plug 'jonathanfilip/vim-lucius'
+" Hybrid theme
+Plug 'w0ng/vim-hybrid'
+" HTML5 Syntax.
+Plug 'othree/html5.vim'
 
 call plug#end()
 
@@ -134,24 +138,41 @@ set clipboard+=unnamedplus
 nmap <Leader>o :lopen<CR>      " open location window
 nmap <Leader>c :lclose<CR>     " close location window
 nmap <Leader>, :ll<CR>         " go to current error/warning
-
+" Clear highlight on CR
+:nnoremap <CR> :nohlsearch<CR><CR>
+" Open NERDTree with CTRL n
+map <C-n> :NERDTreeToggle<CR>
+" Space + f to Find selected text in current file
+vnoremap <Leader>f y/<C-R>"<CR>
+" Tab management
+nmap <leader>t :tabnew<CR>
+" Space + s to save current file
 nmap <leader>s :w<cr>
+" Space + z to open BufExplorer
 nmap <leader>z :BufExplorerHorizontalSplit<cr>
 " You know what this does..
 map q: :q
+nnoremap <Leader>F :Ack!<Space>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Open NERDTree with CTRL n
+" Nerd Commenter
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <C-n> :NERDTreeToggle<CR>
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
 
-" Clear highlight on CR
-:nnoremap <CR> :nohlsearch<CR><CR>
-
-" Prevent Ack from opening first results of search
+let g:ycm_filetype_blacklist = {
+      \ 'ruby' : 1,
+      \}
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ack configuration
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 cnoreabbrev Ack Ack!
-nnoremap <Leader>a :Ack!<Space>
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Misc
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Clean trailling white spaces
 autocmd BufWritePre * %s/\s\+$//e
 
@@ -168,11 +189,3 @@ else
     \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
     \ }
 endif
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Nerd Commenter
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-" Use compact syntax for prettified multi-line comments
-let g:NERDCompactSexyComs = 1
