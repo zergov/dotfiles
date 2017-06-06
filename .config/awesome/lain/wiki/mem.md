@@ -1,10 +1,16 @@
-Shows memory status (in MiB) in a textbox.
+## Usage
+
+[Read here.](https://github.com/copycat-killer/lain/wiki/Widgets#usage)
+
+### Description
+
+Shows memory status (in MiB).
 
 ```lua
-mymem = lain.widgets.mem()
+local mymem = lain.widgets.mem()
 ```
 
-### input table
+## Input table
 
 Variable | Meaning | Type | Default
 --- | --- | --- | ---
@@ -15,10 +21,13 @@ in `settings` you can use the following variables:
 
 Variable | Meaning | Type
 --- | --- | --- | ---
-`mem_now.used` | Memory used (in MB) | string
-`mem_now.swapused` | Swap memory used (in MB) | string
+`mem_now.used` | Memory used (MiB) | string
+`mem_now.swapused` | Swap memory used (MiB) | string
 `mem_now.perc` | Memory percentage | int
 
-### output
+## Output table
 
-A textbox.
+Variable | Meaning | Type
+--- | --- | ---
+`widget` | The widget | `wibox.widget.textbox`
+`update` | Update `widget` | function

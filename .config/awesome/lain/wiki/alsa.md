@@ -1,10 +1,16 @@
-Shows and controls ALSA volume with a textbox.
+## Usage
+
+[Read here.](https://github.com/copycat-killer/lain/wiki/Widgets#usage)
+
+### Description
+
+Shows ALSA volume.
 
 ```lua
-volumewidget = lain.widgets.alsa()
+local volume = lain.widgets.alsa()
 ```
 
-### input table
+## Input table
 
 Variable | Meaning | Type | Default
 --- | --- | --- | ---
@@ -14,14 +20,31 @@ Variable | Meaning | Type | Default
 `togglechannel` | Toggle channel | string | `nil`
 `settings` | User settings | function | empty function
 
-`cmd` is useful if you need to pass additional arguments to amixer. For instance, users with multiple sound cards may define `cmd = "amixer -c X"` in order to set amixer with card `X`.
+`cmd` is useful if you need to pass additional arguments to amixer. For instance, you may want to define `cmd = "amixer -c X"` in order to set amixer with card `X`.
 
-In case you are using an HDMI output, and mute toggling can't be mapped to `Master`, define `togglechannel` argument as your S/PDIF device. You can know the correct ID device with `amixer`'s `scontents` command. 
+`settings` can use the following variables:
 
-For instance, if card number is 1 and S/PDF number is 3:
+Variable | Meaning | Type | Values
+--- | --- | --- | ---
+`volume_now.level` | Volume level | int | 0-100
+`volume_now.status` | Device status | string | "on", "off"
+
+## Output table
+
+Variable | Meaning | Type
+--- | --- | ---
+`widget` | The widget | `wibox.widget.textbox`
+`channel` | ALSA channel | string
+`update` | Update `widget` | function
+
+## Toggle channel
+
+In case mute toggling can't be mapped to master channel (this happens, for instance, when you are using an HDMI output), define togglechannel as your S/PDIF device. You can get the device ID with `scontents` command.
+
+For instance, if card number is 1 and S/PDIF number is 3:
 
 ```shell
-$ amixer -c1 scontents
+$ amixer -c 1 scontents
 Simple mixer control 'Master',0
   Capabilities: volume
   Playback channels: Front Left - Front Right
@@ -49,48 +72,65 @@ Simple mixer control 'IEC958',3
 
 you have to set `togglechannel = "IEC958,3"`.
 
-`settings` can use the following variables:
+## Buttons
 
-Variable | Meaning | Type | Values
---- | --- | --- | ---
-`volume_now.level` | Volume level | int | 0-100
-`volume_now.status` | Device status | string | "on", "off"
+If you want buttons, just add the following after your widget in `rc.lua`.
 
-### output table
+```lua
+volume.widget:buttons(awful.util.table.join(
+    awful.button({}, 1, function() -- left click
+        awful.spawn(string.format("%s -e alsamixer", terminal))
+    end),
+    awful.button({}, 2, function() -- middle click
+        awful.spawn(string.format("%s set %s 100%%", volume.cmd, volume.channel))
+        volume.update()
+    end),
+    awful.button({}, 3, function() -- right click
+        awful.spawn(string.format("%s set %s toggle", volume.cmd, volume.togglechannel or volume.channel))
+        volume.update()
+    end),
+    awful.button({}, 4, function() -- scroll up
+        awful.spawn(string.format("%s set %s 1%%+", volume.cmd, volume.channel))
+        volume.update()
+    end),
+    awful.button({}, 5, function() -- scroll down
+        awful.spawn(string.format("%s set %s 1%%-", volume.cmd, volume.channel))
+        volume.update()
+    end)
+))
+```
 
-Variable | Meaning | Type
---- | --- | --- 
-`widget` | The widget | `wibox.widget.textbox`
-`channel` | Alsa channel | string
-`update` | Update `widget` | function
+## Keybindings
 
-You can control the widget with key bindings like these:
+You can control the widget with keybindings like these:
 
 ```lua
 -- ALSA volume control
 awful.key({ altkey }, "Up",
 	function ()
-		os.execute(string.format("amixer set %s 1%%+", volumewidget.channel))
-		volumewidget.update()
+		os.execute(string.format("amixer set %s 1%%+", volume.channel))
+		volume.update()
 	end),
 awful.key({ altkey }, "Down",
 	function ()
-		os.execute(string.format("amixer set %s 1%%-", volumewidget.channel))
-		volumewidget.update()
+		os.execute(string.format("amixer set %s 1%%-", volume.channel))
+		volume.update()
 	end),
 awful.key({ altkey }, "m",
 	function ()
-		os.execute(string.format("amixer set %s toggle", volumewidget.togglechannel or volumewidget.channel))
-		volumewidget.update()
+		os.execute(string.format("amixer set %s toggle", volume.togglechannel or volume.channel))
+		volume.update()
 	end),
 awful.key({ altkey, "Control" }, "m",
 	function ()
-		os.execute(string.format("amixer set %s 100%%", volumewidget.channel))
-		volumewidget.update()
+		os.execute(string.format("amixer set %s 100%%", volume.channel))
+		volume.update()
 	end),
 awful.key({ altkey, "Control" }, "0",
 	function ()
-		os.execute(string.format("amixer set %s 0%%", volumewidget.channel))
-		volumewidget.update()
+		os.execute(string.format("amixer set %s 0%%", volume.channel))
+		volume.update()
 	end),
 ```
+
+where `altkey = "Mod1"`.

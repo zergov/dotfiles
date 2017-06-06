@@ -1,16 +1,14 @@
 Welcome to the Lain wiki!
 
-Dependencies
-------------------
+Dependency
+------------
 
-Package | Requested by | Reason of choice
+Package | Requested by | Reasons of choice
 --- | --- | ---
-alsa-utils | ALSA widgets | /
-curl | widgets accessing network resources | Simpler to install and use than LuaSocket. 
-imagemagick | album arts in [MPD](https://github.com/copycat-killer/lain/wiki/mpd) notifications | Cairo doesn't do high quality filtering.
+[curl](https://curl.haxx.se) | widgets accessing network resources | 1. faster and simpler to use than [LuaSocket](https://github.com/diegonehab/luasocket); 2. it's in the core of almost every distro; 3. can be called [asynchronously](https://awesomewm.org/doc/api/libraries/awful.spawn.html#easy_async)
 
 Installation
----------------
+------------
 
 ### Arch Linux
 
@@ -21,6 +19,8 @@ Installation
 ```shell
 git clone https://github.com/copycat-killer/lain.git ~/.config/awesome/lain
 ```
+
+Also available via [LuaRocks](https://luarocks.org/modules/aajjbb/lain).
 
 Usage
 --------

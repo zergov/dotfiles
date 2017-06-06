@@ -1,9 +1,13 @@
-A widget for showing the current song track's information from MOC (Music On Console). 
+## Usage
 
-It also provides next track notifications using Naughty.
+[Read here.](https://github.com/copycat-killer/lain/wiki/Widgets#usage)
+
+### Description
+
+A widget for showing the current song track's information from MOC (Music On Console).
 
 ```lua
-mocwidget = lain.widgets.contrib.moc()
+local mymoc = lain.widgets.contrib.moc()
 ```
 
 Now playing songs are notified like this:
@@ -16,24 +20,21 @@ Now playing songs are notified like this:
 	| +-------+                                              |
 	+--------------------------------------------------------+
 
-You need a file like this
-
-```
-(Front|front|Cover|cover|Art|art|Folder|folder)\.(jpg|jpeg|png|gif)
-```
-
-in the album folder in order to show album art too.
-
-### input table
+## Input table
 
 Variable | Meaning | Type | Default
 --- | --- | --- | ---
 `timeout` | Refresh timeout seconds | int | 1
 `music_dir` | Music directory | string | "~/Music"
 `cover_size` | Album art notification size | int | 100
+`cover_pattern` | Pattern for the album art file | string | `*\\.(jpg|jpeg|png|gif)`*
 `default_art` | Default art | string | ""
-`followmouse` | Notification behaviour | boolean | false
+`followtag` | Display the notification on currently focused screen | boolean | false
 `settings` | User settings | function | empty function
+
+\* In Lua, "\\\\" means "\" escaped.
+
+Default `cover_pattern` definition will made the widget set the first jpg, jpeg, png or gif file found in the directory as the album art.
 
 Pay attention to case sensitivity when defining `music_dir`.
 
@@ -47,7 +48,7 @@ Pay attention to case sensitivity when defining `music_dir`.
 - elapsed (Time elapsed for the current track)
 - total (The current track's total time)
 
-and can modify `moc_notification_preset` table, which will be the preset for the naughty notifications. Check [here](http://awesome.naquadah.org/doc/api/modules/naughty.html#notify) for the list of variables it can contain. Default definition:
+and can modify `moc_notification_preset` table, which will be the preset for the naughty notifications. Check [here](https://awesomewm.org/apidoc/libraries/naughty.html#notify) for the list of variables it can contain. Default definition:
 
 ```lua
 moc_notification_preset = {
@@ -58,14 +59,21 @@ moc_notification_preset = {
 }
 ```
 
-In multiple screen setups, the default behaviour is to show a visual notification pop-up window on the first screen. By setting `followmouse` to `true` it will be shown on the same screen containing the widget.
+In multiple screen setups, the default behaviour is to show a visual notification pop-up window on the first screen. By setting `followtag` to `true` it will be shown on the currently focused tag screen.
 
-### output table
+## Output table
 
 Variable | Meaning | Type
 --- | --- | ---
-`widget` | The textbox | `wibox.widget.textbox`
-`update` | The notification | function
+`widget` | The widget | `wibox.widget.textbox`
+`update` | Update `widget` | function
+`timer` | The widget timer | [`gears.timer`](https://awesomewm.org/doc/api/classes/gears.timer.html)
+
+The `update` function can be used to refresh the widget before `timeout` expires.
+
+You can use `timer` to start/stop the widget as you like.
+
+## Keybindings
 
 You can control the widget with key bindings like these:
 
@@ -73,24 +81,42 @@ You can control the widget with key bindings like these:
 -- MOC control
 awful.key({ altkey, "Control" }, "Up",
 	function ()
-		awful.util.spawn_with_shell("mocp -G")
-		mocwidget.update()
+		awful.spawn.with_shell("mocp -G")
+		moc.update()
 	end),
 awful.key({ altkey, "Control" }, "Down",
 	function ()
-		awful.util.spawn_with_shell("mocp -s")
-		mocwidget.update()
+		awful.spawn.with_shell("mocp -s")
+		moc.update()
 	end),
 awful.key({ altkey, "Control" }, "Left",
 	function ()
-		awful.util.spawn_with_shell("mocp -r")
-		mocwidget.update()
+		awful.spawn.with_shell("mocp -r")
+		moc.update()
 	end),
 awful.key({ altkey, "Control" }, "Right",
 	function ()
-		awful.util.spawn_with_shell("mocp -f")
-		mocwidget.update()
+		awful.spawn.with_shell("mocp -f")
+		moc.update()
 	end),
 ```
 
 where `altkey = "Mod1"`.
+
+If you don't use the widget for long periods and wish to spare CPU, you can toggle it with a keybinding like this:
+
+```lua
+-- toggle MOC widget
+awful.key({ altkey }, "0",
+        function ()
+            local common = { text = "MOC widget ", position = "top_middle", timeout = 2 }
+            if moc.timer.started then
+                moc.timer:stop()
+                common.text = common.text .. markup.bold("OFF")
+            else
+                moc.timer:start()
+                common.text = common.text .. markup.bold("ON")
+            end
+            naughty.notify(common)
+        end),
+```

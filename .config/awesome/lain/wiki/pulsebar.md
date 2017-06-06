@@ -1,12 +1,16 @@
-Shows and controls PulseAudio volume with a progressbar; provides tooltips, notifications, and color changes at mute/unmute switch.
+## Usage
+
+[Read here.](https://github.com/copycat-killer/lain/wiki/Widgets#usage)
+
+### Description
+
+Shows PulseAudio volume with a progressbar; provides tooltips and notifications.
 
 ```lua
-volume = lain.widgets.pulsebar()
+local volume = lain.widgets.pulsebar()
 ```
 
-* Left click: Launch `pavucontrol`.
-
-The function takes a table as optional argument, which can contain:
+## Input table
 
 Variable | Meaning | Type | Default
 --- | --- | --- | ---
@@ -17,81 +21,71 @@ Variable | Meaning | Type | Default
 `ticks` | Set bar ticks on | boolean | false
 `ticks_size` | Ticks size | int | 7
 `vertical` | Set the bar vertical | boolean | false
-`cmd` | pulseaudio command | string | same as [here](https://github.com/copycat-killer/lain/wiki/pulseaudio)
-`sink` | Mixer sink | int | 0 
-`colors` | Bar colors | table | see **colors**
-`notifications` | Notifications settings | table | see **notifications**
-`followmouse` | Notification behaviour | bool | false
+`cmd` | PulseAudio command | string | same as [here](https://github.com/copycat-killer/lain/wiki/pulseaudio)
+`scallback` | [PulseAudio sink callback](https://github.com/copycat-killer/lain/wiki/pulseaudio/) | function | `nil`
+`sink` | Mixer sink | int | 0
+`colors` | Bar colors | table | see [Default colors](https://github.com/copycat-killer/lain/wiki/pulsebar#default-colors)
+`notification_preset` | Notification preset | table | See [default `notification_preset`](https://github.com/copycat-killer/lain/wiki/pulsebar#default-notification_preset)
+`followtag` | Display the notification on currently focused screen | boolean | false
 
-### colors
+`settings` can use [these variables](https://github.com/copycat-killer/lain/wiki/pulseaudio#settings-variables).
+
+### Default colors
 
 Variable | Meaning | Type | Default
 --- | --- | --- | ---
-`background` | Bar backgrund color | string | `beautiful.bg_normal`
+`background` | Bar backgrund color | string | "#000000"
 `mute` | Bar mute color | string | "#EB8F8F"
 `unmute` | Bar unmute color | string | "#A4CE8A"
 
-### notifications
+### Default `notification_preset`
 
-Variable | Meaning | Type | Default
---- | --- | --- | ---
-`font` | Notifications font | string | The one defined in `beautiful.font`
-`font_size` | Notifications font size | string | "11"
-`color` | Notifications color | string | `beautiful.fg_normal`
-`bar_size` | Wibox height | int | 18
-`screen` | Notifications screen | int | 1
+```lua
+notification_preset = {
+    font = "Monospace 10"
+}
+```
 
-It's **crucial** to set `notifications.bar_size` to your `mywibox[s]` height.
-
-`settings` can use the following variables:
-
-Variable | Meaning | Type | Values
---- | --- | --- | ---
-`volume_now.left` | Left volume | int | 0-100
-`volume_now.right` | Right volume | int | 0-100
-`volume_now.muted` | Muted status | string | "yes", "no"
-### output table
+## Output table
 
 Variable | Meaning | Type
 --- | --- | ---
-`bar` | The widget | `awful.widget.progressbar`
-`channel` | pulse channel | string
-`card` | pulse card | string
-`step` | Increase/decrease step | string
+`bar` | The widget | `wibox.widget.progressbar`
+`sink` | PulseAudio sink | string
 `notify` | The notification | function
 `update` | Update state | function
+`tooltip` | The tooltip | `awful.tooltip`
 
-In multiple screen setups, the default behaviour is to show a visual notification pop-up window on the first screen when the widget is hovered with the mouse. By setting `followmouse` to `true` it will be shown on the same screen containing the widget.
+In multiple screen setups, the default behaviour is to show a visual notification pop-up window on the first screen. By setting `followtag` to `true` it will be shown on the currently focused tag screen.
 
-You can control the widget with key bindings like these:
+## Buttons
+
+If you want buttons, just add the following after your widget in `rc.lua`.
 
 ```lua
--- PulseAudio volume control
-awful.key({ altkey }, "Up",
-	function ()
-		os.execute(string.format("pactl set-sink-volume %d +1%%", volume.sink))
-		volume.update()
-	end),
-awful.key({ altkey }, "Down",
-	function ()
-		os.execute(string.format("pactl set-sink-volume %d -1%%", volume.sink))
-		volume.update()
-	end),
-awful.key({ altkey }, "m",
-	function ()
-		os.execute(string.format("pactl set-sink-mute %d toggle", volume.sink))
-		volume.update()
-	end),
-awful.key({ altkey, "Control" }, "m",
-	function ()
-		os.execute(string.format("pactl set-sink-volume %d 100%%", volume.sink))
-		volume.update()
-	end),
-awful.key({ altkey, "Control" }, "0",
-	function ()
-		os.execute(string.format("pactl set-sink-volume %d 0%%", volume.sink))
-		volume.update()
-	end),
+volume.bar:buttons(awful.util.table.join(
+    awful.button({}, 1, function() -- left click
+        awful.spawn("pavucontrol")
+    end),
+    awful.button({}, 2, function() -- middle click
+        awful.spawn(string.format("pactl set-sink-volume %d 100%%", volume.sink))
+        volume.update()
+    end),
+    awful.button({}, 3, function() -- right click
+        awful.spawn(string.format("pactl set-sink-mute %d toggle", pulsebar.sink))
+        volume.update()
+    end),
+    awful.button({}, 4, function() -- scroll up
+        awful.spawn(string.format("pactl set-sink-volume %d +1%%", pulsebar.sink))
+        volume.update()
+    end),
+    awful.button({}, 5, function() -- scroll down
+        awful.spawn(string.format("pactl set-sink-volume %d -1%%", pulsebar.sink))
+        volume.update()
+    end)
+))
 ```
 
-where `altkey = "Mod1"`.
+## Keybindings
+
+Read [here](https://github.com/copycat-killer/lain/wiki/pulseaudio#keybindings). If you want notifications, use `volume.notify()` instead of `volume.update()`.

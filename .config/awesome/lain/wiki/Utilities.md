@@ -1,47 +1,62 @@
-quake
+Quake
 -----
 
 A Quake-like dropdown container for your favourite application.
 
-```lua
-lain.util.quake()
-```
-
 **Usage**
 
+Define it in `connect_for_each_screen` function:
+
 ```lua
-local quakeapp = {}
-for s = 1, screen.count() do
-   quakeapp[s] = lain.util.quake()
-end
+awful.screen.connect_for_each_screen(function(s)
+    -- Quake application
+    s.quake = lain.util.quake()
+    -- [...]
+```
+
+**Keybinding**
+
+```lua
+awful.key({ modkey, }, "z", function () awful.screen.focused().quake:toggle() end),
 ```
 
 **Input table**
 
 Variable | Meaning | Type | Default
 --- | --- | --- | ---
-`app` | application to spawn | string | "xterm"
-`name` | window name | string | "QuakeDD"
-`argname` | how to specify window name | string | "-name %s"
+`app` | client to spawn | string | "xterm"
+`name` | client name | string | "QuakeDD"
+`argname` | how to specify client name | string | "-name %s"
 `extra` | extra `app` arguments | string | empty string
-`visible` | initially visible | boolean | false
-`screen` | screen | int | `capi.mouse.screen`
 `border` | border width | int | 1
-`wibox_height` | statusbar weight | int | 18
-`height` | dropdown window height | float in [0,1] or exact pixel size | 0.25  
-`width` | dropdown window width | float in [0,1] or exact pixel size | 1
+`visible` | initially visible | boolean | false
+`followtag` | always spawn on currently focused screen\* | boolean | false
+`overlap` | Overlap the wibox or not | boolean | false
+`settings` Additional settings to make on the client | function | nil
+`screen` | screen where to spawn the client | int | `awful.screen.focused()`
+`height` | dropdown client height | float in [0,1] or exact pixel size | 0.25
+`width` | dropdown client width | float in [0,1] or exact pixel size | 1
 `vert` | vertical position | string, possible values: "top", "bottom", "center" | "top"
-`horiz` | horizontal position | string, possible values: "left", "right", "center" | "center"
+`horiz` | horizontal position | string, possible values: "left", "right", "center" | "left"
 
 `height` and `width` express a fraction of the workspace.
 
+`settings` is a function which takes the client as input, and can be used to customize its properties. For instance:
+
+```lua
+-- set the client sticky
+s.quake = lain.util.quake({ settings = function(c) c.sticky = true end })
+```
+
+Read [here](https://awesomewm.org/doc/api/classes/client.html#Object_properties) for the complete list of properties.
+
 **Notes**
 
-* If your application right border exceeds workspace, try setting `width = 0.999`.
-* If your application is a terminal and you have a rule like `awful.client.setslave` for your terminals, ensure you use an exception for `QuakeDD` (or your defined `name`). Otherwise, you may run into problems with focus.
-* Are you using a GTK+ application like termite? Be sure to set [`argname = "--name %s"`](https://github.com/copycat-killer/lain/issues/211).
+* Set `followtag = true` if experiencing issue with multiscreen setups.
+* If your client is a terminal and you have a rule like `awful.client.setslave` for your terminals, ensure you use an exception for `QuakeDD` (or your defined `name`). Otherwise, you may run into problems with focus.
+* If you are using a GTK+ application like termite, be sure to set [`argname = "--name %s"`](https://github.com/copycat-killer/lain/issues/211).
 
-separators
+Separators
 ----------
 
 Adds Cairo separators.
@@ -50,16 +65,21 @@ Adds Cairo separators.
 local separators = lain.util.separators
 ```
 
-A separator function `separators.separator` takes two color arguments, defined as strings. `"alpha"` argument is allowed. [Example](https://github.com/copycat-killer/awesome-copycats/blob/master/rc.lua.powerarrow-darker#L261-262). 
+A separator function `separators.separator` takes two color arguments, defined as strings. `"alpha"` argument is allowed. Example:
 
-You can customize height and width by setting `awful_widget_height` and `separators_width` in your `theme.lua`. Default values are 0 and 9, respectively.
+```lua
+arrl_dl = separators.arrow_left(beautiful.bg_focus, "alpha")
+arrl_ld = separators.arrow_left("alpha", beautiful.bg_focus)
+```
+
+You can customize height and width by setting `separators_height` and `separators_width` in your `theme.lua`. Default values are 0 and 9, respectively.
 
 List of functions:
 
      +-- separators
      |
      |`-- arrow_right()    Draw a right arrow.
-     |`-- arrow_left()     Draw a left arrow.
+      `-- arrow_left()     Draw a left arrow.
 
 markup
 ------
@@ -82,36 +102,33 @@ List of functions:
      |`-- big()         Set bigger text.
      |`-- small()       Set smaller text.
      |`-- font()        Set the font of the text.
+     |`-- font()        Set the font of the text.
+     |`-- color()       Set background and foreground color.
+     |`-- fontfg()      Set font and foreground color.
+     |`-- fontbg()      Set font and background color.
+      `-- fontcolor()   Set font, plus background and foreground colors.
      |
      |`--+ bg
      |   |
-     |   |`-- color()   Set background color.
-     |   |`-- focus()   Set focus  background color.
-     |   |`-- normal()  Set normal background color.
-     |    `-- urgent()  Set urgent background color.
+     |    `-- color()   Set background color.
      |
-     |`--+ fg
-     |   |
-     |   |`-- color()   Set foreground color.
-     |   |`-- focus()   Set focus  foreground color.
-     |   |`-- normal()  Set normal foreground color.
-     |    `-- urgent()  Set urgent foreground color.
-     |
-     |`-- focus()       Set both foreground and background focus  colors.
-     |`-- normal()      Set both foreground and background normal colors.
-      `-- urgent()      Set both foreground and background urgent colors.
+      `--+ fg
+         |
+          `-- color()   Set foreground color.
 
-they all take one argument, which is the text to markup, except `font`, `fg.color` and `bg.color`:
+they all take one argument, which is the text to markup, except the following:
 
 ```lua
 markup.font(font, text)
+markup.color(fg, bg, text)
+markup.fontfg(font, fg, text)
+markup.fontbg(font, bg, text)
+markup.fontcolor(font, fg, bg, text)
 markup.fg.color(color, text)
 markup.bg.color(color, text)
 ```
 
-`focus`, `normal` and `urgent` use `beautiful` variables.
-
-dynamic tagging
+Dynamic tagging
 ---------------
 
 That is:
@@ -119,26 +136,24 @@ That is:
 - add a new tag;
 - rename current tag;
 - move current tag;
-- remove current tag.
+- delete current tag.
 
 If you delete a tag, any rule set on it shall be broken, so be careful.
 
 Use it with key bindings like these:
 
 ```lua
-awful.key({ modkey, "Shift" }, "n", function () lain.util.add_tag(mypromptbox) end),
-awful.key({ modkey, "Shift" }, "r", function () lain.util.rename_tag(mypromptbox) end),
+awful.key({ modkey, "Shift" }, "n", function () lain.util.add_tag() end),
+awful.key({ modkey, "Shift" }, "r", function () lain.util.rename_tag() end),
 awful.key({ modkey, "Shift" }, "Left", function () lain.util.move_tag(1) end),   -- move to next tag
 awful.key({ modkey, "Shift" }, "Right", function () lain.util.move_tag(-1) end), -- move to previous tag
-awful.key({ modkey, "Shift" }, "d", function () lain.util.remove_tag() end),
+awful.key({ modkey, "Shift" }, "d", function () lain.util.delete_tag() end),
 ```
 
-**Note** that these function won't work properly with [Copland theme](https://github.com/copycat-killer/awesome-copycats) or any other configuration that already uses a dynamic tagging module like [Eminent](https://github.com/copycat-killer/awesome-copycats/tree/master/eminent).
-
-useless\_gaps\_resize
+Useless gaps resize
 ---------------------
 
-Changes `beautiful.useless_gaps_width` on the fly.
+Changes `beautiful.useless_gaps` on the fly.
 
 The function takes an integer argument, being the amount of pixel to add/remove to gaps.
 
@@ -150,7 +165,7 @@ awful.key({ altkey, "Control" }, "+", function () lain.util.useless_gaps_resize(
 awful.key({ altkey, "Control" }, "-", function () lain.util.useless_gaps_resize(-1) end),
 ```
 
-where `altkey=Mod1`, or you could use it like this:
+where `altkey = Mod1`, or you could use it like this:
 
 ```lua
 mywidget:buttons(awful.util.table.join (
@@ -182,20 +197,6 @@ awful.key({ altkey }, "Right", function () lain.util.tag_view_nonempty(1) end),
 
 where `altkey = "Mod1"`.
 
-menu\_clients\_current\_tags
-----------------------------
-
-Similar to `awful.menu.clients`, but this menu only shows the clients
-of currently visible tags. Use it with a key binding like this:
-
-```lua
-awful.key({ "Mod1" }, "Tab", function()
-    awful.menu.menu_keys.down = { "Down", "Alt_L", "Tab", "j" }
-    awful.menu.menu_keys.up = { "Up", "k" }
-    lain.util.menu_clients_current_tags({ width = 350 }, { keygrabber = true })
-end),
-```
-
 magnify\_client
 ---------------
 
@@ -216,34 +217,14 @@ If you want to "de-magnify" it, just retype the keybinding.
 
 If you want magnified client to respond to `incmwfact`, read [here](https://github.com/copycat-killer/lain/issues/195).
 
-niceborder\_{focus, unfocus}
+menu\_clients\_current\_tags
 ----------------------------
 
-By default, your `rc.lua` contains something like this:
+Similar to `awful.menu.clients`, but this menu only shows the clients
+of currently visible tags. Use it with a key binding like this:
 
 ```lua
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
-```
-
-You can change it to this:
-
-```lua
-client.connect_signal("focus", lain.util.niceborder_focus(c))
-client.connect_signal("unfocus", lain.util.niceborder_unfocus(c))
-```
-
-Now, when a client is focused or unfocused, Awesome will look up its
-nice value in `/proc/<pid>/stat`. If it's less than 0, the client is
-classified as "high priority"; if it's greater than 0, the client is
-classified as "low priority". If it's equal to 0, nothing special
-happens.
-
-This requires to define additional colors in your `theme.lua`:
-
-```lua
-theme.border_focus_highprio  = "#FF0000"
-theme.border_normal_highprio = "#A03333"
-theme.border_focus_lowprio   = "#3333FF"
-theme.border_normal_lowprio  = "#333366"
+awful.key({ "Mod1" }, "Tab", function()
+    lain.util.menu_clients_current_tags({ width = 350 }, { keygrabber = true })
+end),
 ```

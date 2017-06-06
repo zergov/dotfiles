@@ -6,44 +6,57 @@
                                                   
 --]]
 
-local read_pipe    = require("lain.helpers").read_pipe
-local newtimer     = require("lain.helpers").newtimer
+local helpers      = require("lain.helpers")
+local shell        = require("awful.util").shell
 local wibox        = require("wibox")
-
-local string       = { match  = string.match,
+local string       = { gmatch = string.gmatch,
+                       match  = string.match,
                        format = string.format }
-
 local setmetatable = setmetatable
 
 -- PulseAudio volume
 -- lain.widgets.pulseaudio
-local pulseaudio = {}
 
 local function worker(args)
-   local args        = args or {}
-   local timeout     = args.timeout or 5
-   local settings    = args.settings or function() end
-   local scallback   = args.scallback
+    local pulseaudio = { wibox.widget.textbox() }
+    local args        = args or {}
+    local devicetype  = args.devicetype or "sink"
+    local timeout     = args.timeout or 5
+    local settings    = args.settings or function() end
+    local scallback   = args.scallback
 
-   pulseaudio.cmd    = args.cmd or string.format("pacmd list-sinks | sed -n -e '0,/*/d' -e '/base volume/d' -e '/volume:/p' -e '/muted:/p'")
-   pulseaudio.widget = wibox.widget.textbox('')
+    pulseaudio.cmd    = args.cmd or "pacmd list-" .. devicetype .. "s | sed -n -e '0,/*/d' -e '/base volume/d' -e '/volume:/p' -e '/muted:/p' -e '/device\\.string/p'"
 
-   function pulseaudio.update()
-      if scallback then pulseaudio.cmd = scallback() end
-      local s = read_pipe(pulseaudio.cmd)
+    function pulseaudio.update()
+        if scallback then pulseaudio.cmd = scallback() end
 
-      volume_now = {}
-      volume_now.left  = tonumber(string.match(s, ":.-(%d+)%%"))
-      volume_now.right = tonumber(string.match(s, ":.-(%d+)%%"))
-      volume_now.muted = string.match(s, "muted: (%S+)")
+        helpers.async({ shell, "-c", pulseaudio.cmd }, function(s)
+            volume_now = {
+                index = string.match(s, "index: (%S+)") or "N/A",
+                device = string.match(s, "device.string = \"(%S+)\"") or "N/A",
+                sink   = device, -- legacy API
+                muted  = string.match(s, "muted: (%S+)") or "N/A"
+            }
 
-      widget = pulseaudio.widget
-      settings()
-   end
+            local ch = 1
+            volume_now.channel = {}
+            for v in string.gmatch(s, ":.-(%d+)%%") do
+                volume_now.channel[ch] = v
+                ch = ch + 1
+            end
 
-   newtimer(string.format("pulseaudio-%s", timeout), timeout, pulseaudio.update)
+            volume_now.left  = volume_now.channel[1] or "N/A"
+            volume_now.right = volume_now.channel[2] or "N/A"
 
-   return setmetatable(pulseaudio, { __index = pulseaudio.widget })
+            widget = pulseaudio.widget
+
+            settings()
+        end)
+    end
+
+    helpers.newtimer("pulseaudio", timeout, pulseaudio.update)
+
+    return pulseaudio
 end
 
-return setmetatable(pulseaudio, { __call = function(_, ...) return worker(...) end })
+return setmetatable({}, { __call = function(_, ...) return worker(...) end })

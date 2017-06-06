@@ -2,47 +2,26 @@
     lain/layout
     .
     |-- termfair
-    |-- centerfair
+    |-- termfair.center
     |-- cascade
-    |-- cascadetile
+    |-- cascade.tile
     |-- centerwork
-    |-- centerhwork
-    |-- centerworkd
-    |-- uselessfair
-    |-- uselesspiral
-    `-- uselesstile
+    |-- centerwork.horizontal
 
 Usage
 =====
 
-Just add your favourites to ``layouts`` table:
+Just specify your favourites in the usual way, or set them on specific tags like this:
 
 ```lua
-layouts =
-{
-    --[...]
-   lain.layout.termfair,
-   lain.layout.uselesstile,
-   -- [...]
-}
-```
-
-Or set them on specific tags like this:
-
-```lua
-awful.layout.set(lain.layout.uselessfair, tags[1][7])
+awful.layout.set(lain.layout.termfair, tag)
 ```
 
 How do layouts work?
 ====================
 
-termfair
+`termfair`
 --------
-
-I do a lot of work on terminals. The common tiling algorithms usually
-maximize windows, so you'll end up with a terminal that has about 200
-columns or more. That's way too much. Have you ever read a manpage in a
-terminal of this size?
 
 This layout restricts the size of each window. Each window will have the
 same width but is variable in height. Furthermore, windows are
@@ -76,10 +55,10 @@ For example, this sets `termfair` to 3 columns and at least 1 row:
 
 ```lua
 lain.layout.termfair.nmaster = 3
-lain.layout.termfair.ncol = 1
+lain.layout.termfair.ncol    = 1
 ```
 
-centerfair
+`termfair.center`
 ----------
 
 Similar to `termfair`, but with fixed number of vertical columns. Cols are centerded until there are `nmaster` columns, then windows are stacked as slaves, with possibly `ncol` clients per column at most.
@@ -101,14 +80,14 @@ Similar to `termfair`, but with fixed number of vertical columns. Cols are cente
 Like `termfair`, default number of columns and rows are respectively taken from `nmaster`
 and `ncol` values in `awful.tag`, but you can set your own.
 
-For example:
+For example, this sets `termfair.center` to 3 columns and at least 1 row:
 
 ```lua
-lain.layout.centerfair.nmaster = 3
-lain.layout.centerfair.ncol = 1
+lain.layout.termfair.center.nmaster = 3
+lain.layout.termfair.center.ncol    = 1
 ```
 
-cascade
+`cascade`
 -------
 
 Cascade all windows of a tag.
@@ -116,8 +95,8 @@ Cascade all windows of a tag.
 You can control the offsets by setting these two variables:
 
 ```lua
-lain.layout.cascade.cascade_offset_x = 64
-lain.layout.cascade.cascade_offset_y = 16
+lain.layout.cascade.offset_x = 64
+lain.layout.cascade.offset_y = 16
 ```
 
 The following reserves space for 5 windows:
@@ -129,7 +108,7 @@ lain.layout.cascade.nmaster = 5
 That is, no window will get resized upon the creation of a new window,
 unless there's more than 5 windows.
 
-cascadetile
+`cascade.tile`
 -----------
 
 Similar to `awful.layout.suit.tile` layout, however, clients in the slave
@@ -146,20 +125,20 @@ and anything else means "don't overlap windows".
 Usage example:
 
 ```lua
-lain.layout.cascadetile.cascade_offset_x = 2
-lain.layout.cascadetile.cascade_offset_y = 32
-lain.layout.cascadetile.extra_padding = 5
-lain.layout.cascadetile.nmaster = 5
-lain.layout.cascadetile.ncol = 1
+lain.layout.cascade.tile.offset_x      = 2
+lain.layout.cascade.tile.offset_y      = 32
+lain.layout.cascade.tile.extra_padding = 5
+lain.layout.cascade.tile.nmaster       = 5
+lain.layout.cascade.tile.ncol          = 2
 ```
 
 `extra_padding` reduces the size of the master window if "overlapping
 slave column" is activated. This allows you to see if there are any
 windows in your slave column.
 
-Setting `cascade_offset_x` to a very small value or even 0 is reccommended to avoid wasting space.
+Setting `offset_x` to a very small value or even 0 is recommended to avoid wasting space.
 
-centerwork
+`centerwork`
 ----------
 
 You start with one window, centered horizontally:
@@ -178,61 +157,20 @@ You start with one window, centered horizontally:
 	+--------------------------+
 
 This is your main working window. You do most of the work right here.
-Sometimes, you may want to open up additional windows. They're put in
-the following four slots:
+Sometimes, you may want to open up additional windows. They're put on left and right, alternately.
 
 	+--------------------------+
 	| +---+ +----------+ +---+ |
 	| |   | |          | |   | |
-	| | 0 | |          | | 1 | |
+	| |   | |          | |   | |
 	| |   | |          | |   | |
 	| +---+ |   MAIN   | +---+ |
 	| +---+ |          | +---+ |
 	| |   | |          | |   | |
-	| | 2 | |          | | 3 | |
+	| |   | |          | |   | |
 	| |   | |          | |   | |
 	| +---+ +----------+ +---+ |
 	+--------------------------+
-
-Yes, the number "four" is fixed. In total, you can only have five open
-windows with this layout. Additional windows are not managed and set to
-floating mode. **This is intentional**.
-
-You can set the order of the four auxiliary windows. This is the default
-configuration:
-
-```lua
-lain.layout.centerwork.top_left = 0
-lain.layout.centerwork.top_right = 1
-lain.layout.centerwork.bottom_left = 2
-lain.layout.centerwork.bottom_right = 3
-```
-
-This means: The bottom left slot will be occupied by the third window
-(not counting the main window). Suppose you want your windows to appear
-in this order:
-
-	+--------------------------+
-	| +---+ +----------+ +---+ |
-	| |   | |          | |   | |
-	| | 3 | |          | | 0 | |
-	| |   | |          | |   | |
-	| +---+ |   MAIN   | +---+ |
-	| +---+ |          | +---+ |
-	| |   | |          | |   | |
-	| | 2 | |          | | 1 | |
-	| |   | |          | |   | |
-	| +---+ +----------+ +---+ |
-	+--------------------------+
-
-This would require you to use these settings:
-
-```lua
-lain.layout.centerwork.top_left = 3
-lain.layout.centerwork.top_right = 0
-lain.layout.centerwork.bottom_left = 2
-lain.layout.centerwork.bottom_right = 1
-```
 
 *Please note:* If you use Awesome's default configuration, navigation in
 this layout may be very confusing. How do you get from the main window
@@ -267,64 +205,26 @@ globalkeys = awful.util.table.join(
 )
 ```
 
-centerhwork
+`centerwork.horizontal`
 -----------
 
 Same as `centerwork`, except that the main
-window expands horizontally, and the 4 additional windows
-are put ontop/below it, thus using the huge vertical space
-much better. Useful if you have a screen turned 90°.
+window expands horizontally, and the additional windows
+are put ontop/below it. Useful if you have a screen turned 90°.
 
-centerworkd
+Pre 4.0 `uselesstile` patches
+=============================
+
+In branch 3.5, this module provided useless gaps layouts. Since useless gaps have been implemented in Awesome 4.0, those layouts have been removed.
+
+Following are a couple of `uselesstile` variants that were not part of lain. They are kept only for reference and are not supported.
+
+Xmonad-like
 -----------
 
-Same as `centerwork`, except that this version fills the slave-columns regardless of how many slave-clients are present.
+If you want to have `awful.layout.suit.tile` behave like xmonad, with internal gaps two times wider than external ones, download [this](https://gist.github.com/copycat-killer/9e56dcfbe66bfe14967c) as `lain/layout/uselesstile`.
 
-uselessfair, uselesspiral & uselesstile
----------------------------------------
-These are duplicates of the stock `fair`, `spiral` and `tile` layouts.
-
-However, "useless gaps" (see below) have been added.
-
-Useless gaps
-============
-
-Useless gaps are gaps between windows. They are "useless" because they
-serve no special purpose despite increasing overview. I find it easier
-to recognize window boundaries if windows are set apart a little bit.
-
-The `uselessfair` layout, for example, looks like this:
-
-	+================+
-	#                #
-	#  +---+  +---+  #
-	#  | 1 |  |   |  #
-	#  +---+  |   |  #
-	#         | 3 |  #
-	#  +---+  |   |  #
-	#  | 2 |  |   |  #
-	#  +---+  +---+  #
-	#                #
-	+================+
-
-All of lain layouts provide useless gaps. To set the width of the gaps,
-you have to add an item called `useless_gap_width` in your `theme.lua`.
-If it doesn't exist, the width will default to 0.
-Example:
-
-```lua
-theme.useless_gap_width = 10
-```
-
-`uselesstile` patches
-=====================
-
-xmonad-like
------------
-
-If you want to have uselesstile behave like xmonad, with internal gaps two times wider than external ones, replace `lain/layout/uselesstile` with [this](https://gist.github.com/copycat-killer/9e56dcfbe66bfe14967c).
-
-inverted master
+Inverted master
 ---------------
 
 Want to invert master window position? Use [this](https://gist.github.com/copycat-killer/c59dc59c9f99d98218eb) version. You can set `single_gap` with `width` and `height` in your `theme.lua`, in order to define the window geometry when there's only one client, otherwise it goes maximized. An example:
@@ -336,15 +236,17 @@ What about layout icons?
 
 They are located in ``lain/icons/layout``.
 
-To use them, add lines to your ``theme.lua`` like this:
+To use them, define new `layout_*` variables in your ``theme.lua``. For instance:
 
 ```lua
-theme.lain_icons         = os.getenv("HOME") .. 
+theme.lain_icons         = os.getenv("HOME") ..
                            "/.config/awesome/lain/icons/layout/default/"
-theme.layout_termfair    = theme.lain_icons .. "termfairw.png"
-theme.layout_cascade     = theme.lain_icons .. "cascadew.png"
-theme.layout_cascadetile = theme.lain_icons .. "cascadetilew.png"
-theme.layout_centerwork  = theme.lain_icons .. "centerworkw.png"
+theme.layout_termfair    = theme.lain_icons .. "termfair.png"
+theme.layout_centerfair  = theme.lain_icons .. "centerfair.png"  -- termfair.center
+theme.layout_cascade     = theme.lain_icons .. "cascade.png"
+theme.layout_cascadetile = theme.lain_icons .. "cascadetile.png" -- cascade.tile
+theme.layout_centerwork  = theme.lain_icons .. "centerwork.png"
+theme.layout_centerhwork = theme.lain_icons .. "centerworkh.png" -- centerwork.horizontal
 ```
 
 Credits go to [Nicolas Estibals](https://github.com/nestibal) for creating

@@ -1,3 +1,9 @@
+## Usage
+
+[Read here.](https://github.com/copycat-killer/lain/wiki/Widgets#usage)
+
+### Description
+
 Provides current weather status widgets and X-days forecast popup notifications.
 
 Uses [OpenWeatherMap](http://openweathermap.org/api) API.
@@ -5,10 +11,10 @@ Uses [OpenWeatherMap](http://openweathermap.org/api) API.
 By default, it uses [current](http://openweathermap.org/current) for current weather data and [forecast16](http://openweathermap.org/forecast16) for forecasts.
 
 ```lua
-myweather = lain.widgets.weather()
+local myweather = lain.widgets.weather()
 ```
 
-## input table
+## Input table
 
 Variable | Meaning | Type | Default
 --- | --- | --- | ---
@@ -17,26 +23,30 @@ Variable | Meaning | Type | Default
 `current_call` | Command to fetch weather status data from the API | string | see `default_current_call`
 `forecast_call` | Command to fetch forecast data from the API | string | see `default_forecast_call`
 `city_id` | API city code | int | not set
-`utc_offset` | UTC time offset | function | see [here](https://github.com/copycat-killer/lain/blob/master/widgets/weather.lua#L44-47)
-`units` | Temperature units system | string | "metric" 
+`utc_offset` | UTC time offset | function | see [here](https://github.com/copycat-killer/lain/blob/master/widgets/weather.lua#L44-L47)
+`units` | Temperature units system | string | "metric"
 `lang` | API data localization | string | "en"
 `cnt` | Forecast days interval | int | 5
 `date_cmd` | Forecast notification format style | string | "date -u -d @%d +'%%a %%d'"
 `icons_path` | Icons path | string | `lain/icons/openweathermap`
 `notification_preset` | Preset for notifications | table | empty table
 `notification_text_fun` | Function to format forecast notifications | function | see `notification_text_fun`
-`weather_na_markup` | Markup to be used when weather textbox is not available | text | " N/A " 
-`followmouse` | Notification behaviour | boolean | false
+`weather_na_markup` | Markup to be used when weather textbox is not available | text | " N/A "
+`followtag` | Display the notification on currently focused screen | boolean | false
 `settings` | User settings | function | empty function
 
-- ``default_current_call`` 
+- ``default_current_call``
 
     `"curl -s 'http://api.openweathermap.org/data/2.5/weather?id=%s&units=%s&lang=%s'"`
 
-    You can rewrite it using any fetcher solution you like.
+    You can rewrite it using any fetcher solution you like, or you can modify it in order to fetch data by city name, instead of ID: just replace `id` with `q`:
+
+    `"curl -s 'http://api.openweathermap.org/data/2.5/weather?q=%s&units=%s&lang=%s'"`
+
+    and set `city_id` with your city name, for instance `city_id = "London,UK"`.
 
 - ``default_forecast_call``
- 
+
     `"curl -s 'http://api.openweathermap.org/data/2.5/forecast/daily?id=%s&units=%s&lang=%s&cnt=%s'"`
 
     Like above.
@@ -87,7 +97,7 @@ Variable | Meaning | Type | Default
 
 - ``notification_preset``
 
-   Notifications preset table. See [here](http://awesome.naquadah.org/doc/api/modules/naughty.html#notify) for the details.
+   Notifications preset table. See [here](https://awesomewm.org/doc/api/libraries/naughty.html#notify) for the details.
 
 - ``notification_text_fun``
    ```lua
@@ -102,26 +112,31 @@ Variable | Meaning | Type | Default
    ```
    See [here](https://github.com/copycat-killer/lain/issues/186#issuecomment-203400918) for a complete customization example.
 
-- ``followmouse``
+- ``followtag``
 
-   In multiple screen setups, the default behaviour is to show a visual notification pop-up window on the first screen when the widget is hovered with the mouse. By setting followmouse to true it will be shown on the same screen containing the widget.
+   In multiple screen setups, the default behaviour is to show a visual notification pop-up window on the first screen. By setting `followtag` to `true` it will be shown on the currently focused tag screen.
 
 - ``settings``
 
     In your `settings` function, you can use `widget` variable to refer to the textbox, and the dictionary `weather_now` to refer to data retrieved by `current_call`. The dictionary is built with [dkjson library](http://dkolf.de/src/dkjson-lua.fsl/home), and its structure is defined [here](http://openweathermap.org/weather-data).
-    For instance, you can retrieve current weather status and temperature [in this way](https://github.com/copycat-killer/awesome-copycats/blob/master/rc.lua.multicolor#L139-140).
+    For instance, you can retrieve current weather status and temperature in this way:
+    ```lua
+    descr = weather_now["weather"][1]["description"]:lower()
+    units = math.floor(weather_now["main"]["temp"])
+    ```
 
-In multiple screen setups, the default behaviour is to show a visual notification pop-up window on the first screen when the widget is hovered with the mouse. By setting `followmouse` to `true` it will be shown on the same screen containing the widget.
+## Output table
 
-## Usage
-The module creates an imagebox icon and a textbox widget. Add them to you wibox like this:
+Variable | Meaning | Type
+--- | --- | ---
+`widget` | The widget | `wibox.widget.textbox`
+`icon` | The icon | `wibox.widget.imagebox`
+`update` | Update `widget` | function
+`timer` | The widget timer | [`gears.timer`](https://awesomewm.org/doc/api/classes/gears.timer.html)
+`timer_forecast` | The forecast notification timer | [`gears.timer`](https://awesomewm.org/doc/api/classes/gears.timer.html)
 
-```lua
-right_layout:add(myweather)
-right_layout:add(myweather.icon)
-```
+## Functions
 
-### attach
 You can attach the forecast notification to any widget like this:
 
 ```lua
@@ -130,25 +145,9 @@ myweather.attach(obj)
 
 Hovering over ``obj`` will display the notification.
 
-### update
+## Keybindings
 
-```lua
-myweather.update()
-```
-
-Force fetching of current weather status data. Useful when combined with other widgets workflow (for instance, it can be called from net widget when the internet connection is restored).
-
-### forecast_update
-
-```lua
-myweather.forecast_update()
-```
-
-Like above, but for the forecast notification.
-
-### popup shortcut
-
-You can also create a keybinding for the weather popup like this:
+You can create a keybinding for the weather popup like this:
 
 ```lua
 awful.key( { "Mod1" }, "w", function () myweather.show(5) end )

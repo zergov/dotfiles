@@ -1,7 +1,13 @@
-Shows MPD status in a textbox.
+## Usage
+
+[Read here.](https://github.com/copycat-killer/lain/wiki/Widgets#usage)
+
+### Description
+
+Shows MPD status.
 
 ```lua
-mpdwidget = lain.widgets.mpd()
+local mympd = lain.widgets.mpd()
 ```
 
 Now playing songs are notified like this:
@@ -14,17 +20,9 @@ Now playing songs are notified like this:
 	| +-------+                                              |
 	+--------------------------------------------------------+
 
-You need a file like this
-
-```
-(Front|front|Cover|cover|Art|art|Folder|folder)\.(jpg|jpeg|png|gif)
-```
-
-in the album folder in order to show album art too.
-
 **Note:** if MPD is turned off or not set correctly, the widget will constantly display "N/A" values.
 
-### input table
+## Input table
 
 Variable | Meaning | Type | Default
 --- | --- | --- | ---
@@ -34,19 +32,21 @@ Variable | Meaning | Type | Default
 `port` | MPD port | string | "6600"
 `music_dir` | Music directory | string | "~/Music"
 `cover_size` | Album art notification size | int | 100
-`default_art` | Default art | string | ""
+`cover_pattern` | Pattern for the album art file | string | `*\\.(jpg|jpeg|png|gif)`*
+`default_art` | Default art | string | `nil`
 `notify` | Show notification popups | string | "on"
-`followmouse` | Notification behaviour | boolean | false
-`echo_cmd` | custom call for `echo`* | string | "echo"
+`followtag` | Notification behaviour | boolean | false
 `settings` | User settings | function | empty function
 
-\* `echo` implementation is shell dependent, you may need to set this variable properly (`echo -e` [for instance](https://github.com/copycat-killer/lain/issues/112)) in order for the widget to fetch the data correctly.
+\* In Lua, "\\\\" means "\" escaped.
+
+Default `cover_pattern` definition will made the widget set the first jpg, jpeg, png or gif file found in the directory as the album art.
 
 Pay attention to case sensitivity when defining `music_dir`.
 
 `settings` can use `mpd_now` table, which contains the following values:
 
-(**note:** the first four are boolean [flags](https://github.com/copycat-killer/lain/pull/205), the remaining are all strings) 
+(**note:** the first four are boolean [flags](https://github.com/copycat-killer/lain/pull/205), the remaining are all strings)
 
 - random_mode
 - single_mode
@@ -58,13 +58,15 @@ Pay attention to case sensitivity when defining `music_dir`.
 - file
 - artist
 - title
-- [name](https://github.com/copycat-killer/lain/pull/142)
+- name
 - album
+- track
+- genre
 - date
 - [time](https://github.com/copycat-killer/lain/pull/90) (length of current song, in seconds)
 - [elapsed](https://github.com/copycat-killer/lain/pull/90) (elapsed time of current song, in seconds)
 
-and can modify `mpd_notification_preset` table, which will be the preset for the naughty notifications. Check [here](http://awesome.naquadah.org/doc/api/modules/naughty.html#notify) for the list of variables it can contain. Default definition:
+and can modify `mpd_notification_preset` table, which will be the preset for the naughty notifications. Check [here](https://awesomewm.org/doc/api/libraries/naughty.html#notify) for the list of variables it can contain. Default definition:
 
 ```lua
 mpd_notification_preset = {
@@ -75,39 +77,68 @@ mpd_notification_preset = {
 }
 ```
 
-In multiple screen setups, the default behaviour is to show a visual notification pop-up window on the first screen. By setting `followmouse` to `true` it will be shown on the current mouse screen.
+In multiple screen setups, the default behaviour is to show a visual notification pop-up window on the first screen. By setting `followtag` to `true` it will be shown on the currently focused tag screen.
 
-### output table
+## Output table
 
 Variable | Meaning | Type
 --- | --- | ---
 `widget` | The textbox | `wibox.widget.textbox`
-`update` | The notification | function
+`update` | Update `widget` | function
+`timer` | The widget timer | [`gears.timer`](https://awesomewm.org/doc/api/classes/gears.timer.html)
 
-You can control the widget with key bindings like these:
+The `update` function can be used to refresh the widget before `timeout` expires.
+
+You can use `timer` to start/stop the widget as you like.
+
+## Keybindings
+
+You can control the widget with keybindings like these:
 
 ```lua
 -- MPD control
 awful.key({ altkey, "Control" }, "Up",
 	function ()
-		awful.util.spawn_with_shell("mpc toggle || ncmpcpp toggle || ncmpc toggle || pms toggle")
-		mpdwidget.update()
+		awful.spawn.with_shell("mpc toggle || ncmpc toggle || pms toggle")
+		mympd.update()
 	end),
 awful.key({ altkey, "Control" }, "Down",
 	function ()
-		awful.util.spawn_with_shell("mpc stop || ncmpcpp stop || ncmpc stop || pms stop")
-		mpdwidget.update()
+		awful.spawn.with_shell("mpc stop || ncmpc stop || pms stop")
+		mympd.update()
 	end),
 awful.key({ altkey, "Control" }, "Left",
 	function ()
-		awful.util.spawn_with_shell("mpc prev || ncmpcpp prev || ncmpc prev || pms prev")
-		mpdwidget.update()
+		awful.spawn.with_shell("mpc prev || ncmpc prev || pms prev")
+		mympd.update()
 	end),
 awful.key({ altkey, "Control" }, "Right",
 	function ()
-		awful.util.spawn_with_shell("mpc next || ncmpcpp next || ncmpc next || pms next")
-		mpdwidget.update()
+		awful.spawn.with_shell("mpc next || ncmpc next || pms next")
+		mympd.update()
 	end),
 ```
 
 where `altkey = "Mod1"`.
+
+If you don't use the widget for long periods and wish to spare CPU, you can toggle it with a keybinding like this:
+
+```lua
+-- toggle MPD widget
+awful.key({ altkey }, "0",
+        function ()
+            local common = { text = "MPD widget ", position = "top_middle", timeout = 2 }
+            if mympd.timer.started then
+                mympd.timer:stop()
+                common.text = common.text .. markup.bold("OFF")
+            else
+                mympd.timer:start()
+                common.text = common.text .. markup.bold("ON")
+            end
+            naughty.notify(common)
+        end),
+```
+
+## Note
+
+* In `settings`, if you use `widget:set_text`, [it will ignore Pango markup](https://github.com/copycat-killer/lain/issues/258), so be sure to always use `widget:set_markup`.

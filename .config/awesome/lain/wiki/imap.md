@@ -1,7 +1,13 @@
-Shows mail count in a textbox fetching over IMAP.
+## Usage
+
+[Read here.](https://github.com/copycat-killer/lain/wiki/Widgets#usage)
+
+### Description
+
+Shows mails count fetching over IMAP.
 
 ```lua
-myimapcheck = lain.widgets.imap(args)
+local myimap = lain.widgets.imap(args)
 ```
 
 New mails are notified like this:
@@ -12,7 +18,9 @@ New mails are notified like this:
 	| +---+                                      |
 	+--------------------------------------------+
 
-The function takes a table as argument. Required table parameters are:
+## Input table
+
+Required parameters are:
 
 Variable | Meaning | Type
 --- | --- | ---
@@ -27,14 +35,12 @@ Variable | Meaning | Type | Default
 `port` | IMAP port | int | 993
 `timeout` | Refresh timeout seconds | int | 60
 `is_plain` | Define whether `password` is a plain password (true) or a command that retrieves it (false) | boolean | false
-`followmouse` | Notification behaviour | boolean | false
+`followtag` | Notification behaviour | boolean | false
 `settings` | User settings | function | empty function
 
-Let's focus better on `is_plain`.
+The reason why `is_plain` is false by default is to discourage the habit of storing passwords in plain.
 
-The reason why it's false by default is to discourage the habit of storing passwords in plain.
-
-So you can set your password in plain like this:
+So, you can set your password in plain like this:
 
 ```lua
 myimapcheck = lain.widgets.imap({
@@ -50,16 +56,16 @@ and you'll have the same security provided by `~/.netrc`.
 
 ```lua
 myimapcheck = lain.widgets.imap({
-    password = "spm show mymailpass",
+    password = function()
+        -- return the output of "spm show mymail"
+    end,
     -- [...]
 })
 ```
 
-When `is_plain == false` (default), it *executes* `password` before using it, so you can also use whatever password fetching solution you want.
+When `is_plain == false` (default), `password` can be either a string, a table or a function: the widget will execute it asynchronously in the first two cases.
 
-`settings` can use the value `mailcount`, an integer greater or equal to zero, and can modify `mail_notification_preset` table, which will be the preset for the naughty notifications. Check [here](http://awesome.naquadah.org/doc/api/modules/naughty.html#notify) for the list of variables it can contain. 
-
-Default definition:
+`settings` can use the value `mailcount`, an integer greater or equal to zero, and can modify `mail_notification_preset` table, which will be the preset for the naughty notifications. Check [here](https://awesomewm.org/apidoc/libraries/naughty.html#notify) for the list of variables it can contain. Default definition:
 
 ```lua
 mail_notification _preset = {
@@ -70,10 +76,18 @@ mail_notification _preset = {
 
 Note that `mailcount` is 0 either if there are no new mails or credentials are invalid, so make sure you get the right settings.
 
-In multiple screen setups, the default behaviour is to show a visual notification pop-up window on the first screen. By setting `followmouse` to `true` it will be shown on the current mouse screen.
+In multiple screen setups, the default behaviour is to show a visual notification pop-up window on the first screen. By setting `followtag` to `true` it will be shown on the currently focused tag screen.
 
-***This widget is asynchronous***, so you can have multiple instances at the same time.
+You can have multiple instances of this widget at the same time.
 
-### output 
+## Output table
 
-A textbox.
+Variable | Meaning | Type
+--- | --- | ---
+`widget` | The widget | `wibox.widget.textbox`
+`update` | Update `widget` | function
+`timer` | The widget timer | [`gears.timer`](https://awesomewm.org/doc/api/classes/gears.timer.html)
+
+The `update` function can be used to refresh the widget before `timeout` expires.
+
+You can use `timer` to start/stop the widget as you like.

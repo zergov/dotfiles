@@ -1,12 +1,16 @@
-Shows the current core temperature in a textbox.
+## Usage
 
-Reads from `/sys/class/thermal`, so value is expressed in Celsius.
+[Read here.](https://github.com/copycat-killer/lain/wiki/Widgets#usage)
+
+### Description
+
+Shows the current CPU temperature.
 
 ```lua
-mytemp = lain.widgets.temp()
+local mytemp = lain.widgets.temp()
 ```
 
-### input table
+## Input table
 
 Variable | Meaning | Type | Default
 --- | --- | --- | ---
@@ -16,10 +20,13 @@ Variable | Meaning | Type | Default
 
 `settings` can use the string `coretemp_now`, which means current core temperature, expressed in Celsius (linux standard).
 
-### output 
+## Output table
 
-A textbox.
+Variable | Meaning | Type
+--- | --- | ---
+`widget` | The widget | `wibox.widget.textbox`
+`update` | Update `widget` | function
 
-### note
+## Note
 
-Depending on the architecture, keep in mind that your temp files location [might change](https://github.com/copycat-killer/lain/issues/84#issuecomment-72751763).
+Depending on the architecture, note that your temp files location [might vary](https://github.com/copycat-killer/lain/issues/84#issuecomment-72751763).

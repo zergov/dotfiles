@@ -1,43 +1,79 @@
+## Usage
+
+[Read here.](https://github.com/copycat-killer/lain/wiki/Widgets#usage)
+
+### Description
+
 Shows disk space usage for a set partition.
 
 Displays a notification when the partition is full or has low space.
 
 ```lua
-mypartition = lain.widgets.fs()
+local mypartition = lain.widgets.fs()
 ```
 
-### input table
+## Input table
 
 Variable | Meaning | Type | Default
 --- | --- | --- | ---
 `timeout` | Refresh timeout seconds -| int | 600
 `partition` | Partition to monitor | string | "/"
-`notification_preset` | Notification preset | table | `{ fg = beautiful.fg_normal }`
-`followmouse` | Display the notification on mouse screen | boolean | false
-`notify` | Display "partition is empty" notifications | string | "on"
-`showpopup` | Display pop-up window with df output | string | "on"
+`options` | Additional options to pass to [`dfs`](https://github.com/copycat-killer/lain/blob/master/scripts/dfs) | string, in the form `--type='fstype' | --exclude-type='fstype'` | nil
+`notification_preset` | Notification preset | table | See [default `notification_preset`](https://github.com/copycat-killer/lain/wiki/fs#default-notification_preset)
+`followtag` | Display the notification on currently focused screen | boolean | false
+`notify` | Display notifications | string | "on"
+`showpopup` | Display popups with mouse hovering | string, possible values: "on", "off" | "on"
 `settings` | User settings | function | empty function
 
-`settings` can use the following `partition` related float values: `fs_now.used`, `fs_now.available`, `fs_now.size_mb`, `fs_now.size_gb`.
+`settings` can use the following `partition` related strings:
 
-Within `settings`, you can obtain other partition values from internal `fs_info` table. For each partition, there are four index:
+* `fs_now.size_mb`
+* `fs_now.size_gb`
+* `fs_now.used`
+* `fs_now.used_mb`
+* `fs_now.used_gb`
+* `fs_now.available`
+* `fs_now.available_mb`
+* `fs_now.available_gb`
 
-*  `fs_info[other_partition .. " used_p"]`
-*  `fs_info[other_partition .. " avail_p"]`
+Within `settings`, you can obtain other partition values from internal `fs_info` table. For each partition, the following indexes are available:
+
 *  `fs_info[other_partition .. " size_mb"]`
 *  `fs_info[other_partition .. " size_gb"]`
+*  `fs_info[other_partition .. " used_p"]`
+*  `fs_info[other_partition .. " used_mb"]`
+*  `fs_info[other_partition .. " used_gb"]`
+*  `fs_info[other_partition .. " avail_p"]`
+*  `fs_info[other_partition .. " avail_mb"]`
+*  `fs_info[other_partition .. " avail_gb"]`
 
-just like the variables of `fs_now`. See [here](https://github.com/copycat-killer/lain/issues/103) for an usage example.
-
-Also, `settings` can modify `fs_notification_preset` table. This table will be the preset for the naughty notifications. Check [here](http://awesome.naquadah.org/doc/api/modules/naughty.html#notify) for the list of variables it can contain. Default definition:
+just like the variables of `fs_now`. Example:
 
 ```lua
-fs_notification_preset = { fg = beautiful.fg_normal }
+-- shows root and home partitions percentage used
+local fsroothome = lain.widgets.fs({
+    settings  = function()
+        local home_used = tonumber(fs_info["/home used_p"]) or 0
+        widget:set_text("/ " .. fs_now.used .. "% | /home " .. home_used .. "% ")
+    end
+})
 ```
 
-In multiple screen setups, the default behaviour is to show a visual notification pop-up window on the first screen when the widget is hovered with the mouse. By setting `followmouse` to `true` it will be shown on the same screen containing the widget.
+Also, `settings` can modify `notification_preset` table. This table will be the preset for the naughty notifications. Check [here](https://awesomewm.org/doc/api/libraries/naughty.html#notify) for the list of variables it can contain.
 
-### output table
+In multiple screen setups, the default behaviour is to show a visual notification pop-up window on the first screen. By setting `followtag` to `true` it will be shown on the currently focused tag screen.
+
+### Default `notification_preset`
+
+```lua
+notification_preset = {
+    font = "Monospace 10",
+    fg   = "#FFFFFF",
+    bg   = "#000000"
+}
+```
+
+## Output table
 
 Variable | Meaning | Type
 --- | --- | ---
@@ -50,9 +86,11 @@ You can display the notification with a key binding like this:
 awful.key({ altkey }, "h", function () mypartition.show(seconds, scr) end),
 ```
 
-where ``altkey = "Mod1"`` and ``show`` arguments, both optional, are:
+where ``altkey = "Mod1"`` and ``show`` arguments, both optionals, are:
 
-* `seconds`, notification time in seconds;
-* `screen`, screen in which display the notification.
+* `seconds`, notification time in seconds
+* `scr`, screen which to display the notification in
 
-**Note that** naughty notification requires `beautiful.font` or `fs_notification_preset.font` to be monospaced, in order to correctly display the output.
+## Note
+
+Naughty notifications require `notification_preset.font` to be **monospaced**, in order to correctly display the output.
