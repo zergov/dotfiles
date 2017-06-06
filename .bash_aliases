@@ -1,20 +1,27 @@
 # ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
-alias l='ls -CF'
+alias l='ls -l'
+
+#nsec
+alias nsecflag='~/Documents/nsec/askgod submit '
+alias askgod='~/workspace/nsec/askgod'
 
 # Add language switch
 alias ca='setxkbmap ca'
 alias us='setxkbmap us'
 
-# Simple todo list 
-alias todo='vim ~/.todolist'
+# python virtualenv
+alias py3-virtualenv='mkvirtualenv --python=/usr/bin/python3 '
+
+# Notes dir
+alias notes='vim ~/notes/'
 
 # lock the screen
 alias lock='gnome-screensaver-command -l'
 
 # ssh to desktop
-alias sshdesktop='ssh zgv-desktop.local'
+alias sshdesktop='ssh zgv@debian-desktop.local'
 
 #Launch IDEA
 alias idea='/opt/idea-IU-145.597.3/bin/idea.sh &'
@@ -28,12 +35,17 @@ alias aquarium='/usr/local/bin/asciiquarium'
 #Git
 alias g='git'
 
-# VPN connect ETS
-alias vpnets='sudo openconnect https://accesvpn.etsmtl.ca'
-
-# VPN connect outbox
-alias vpnoutbox='sudo openconnect https://connect.outboxenterprises.com'
-
 # Start tmux session for ano developpement
 alias anodev='~/.tmux-ano && tmux a'
 
+# Tmux ls
+alias tm='tmux ls'
+
+# nvim config edition
+alias nvimconfig='nvim ~/.config/nvim/init.vim'
+
+# Start genymotion
+alias geny='/opt/genymobile/genymotion/genymotion'
+
+# save website for offline view
+alias wsave='wget --mirror --convert-links --adjust-extension --page-requisites --no-parent'

@@ -1,6 +1,3 @@
-# show git repository status 
-source ~/.git-prompt.sh
-
 # Syntactic sugar for ANSI escape sequences
 txtblk='\e[0;30m' # Black - Regular
 txtred='\e[0;31m' # Red
@@ -50,16 +47,18 @@ export GIT_PS1_SHOWUNTRACKEDFILES="true"
 export GIT_PS1_SHOWUPSTREAM="auto"
 export GIT_PS1_SHOWCOLORHINTS="true"
 
+######################################################################
 # ASCII SWAG
+######################################################################
 smoll_cat_swag() {
 cat<<"EOT"
-           _                
-          (_)               
+           _
+          (_)
  _ __ ___  _  __ ___      __
 | '_ ` _ \| |/ _` \ \ /\ / /
-| | | | | | | (_| |\ V  V / 
-|_| |_| |_|_|\__,_| \_/\_/  
-                            
+| | | | | | | (_| |\ V  V /
+|_| |_| |_|_|\__,_| \_/\_/
+
 
   \    /\
    )  ( ')
@@ -69,5 +68,30 @@ cat<<"EOT"
 EOT
 }
 
-# Print the smoll cat swag.
+
+potato_swag(){
+cat<<"EOT"
+      ___         ___                       ___                       ___
+     /  /\       /  /\          ___        /  /\          ___        /  /\
+    /  /::\     /  /::\        /  /\      /  /::\        /  /\      /  /::\
+   /  /:/\:\   /  /:/\:\      /  /:/     /  /:/\:\      /  /:/     /  /:/\:\
+  /  /:/~/:/  /  /:/  \:\    /  /:/     /  /:/~/::\    /  /:/     /  /:/  \:\
+ /__/:/ /:/  /__/:/ \__\:\  /  /::\    /__/:/ /:/\:\  /  /::\    /__/:/ \__\:\
+ \  \:\/:/   \  \:\ /  /:/ /__/:/\:\   \  \:\/:/__\/ /__/:/\:\   \  \:\ /  /:/
+  \  \::/     \  \:\  /:/  \__\/  \:\   \  \::/      \__\/  \:\   \  \:\  /:/
+   \  \:\      \  \:\/:/        \  \:\   \  \:\           \  \:\   \  \:\/:/
+    \  \:\      \  \::/          \__\/    \  \:\           \__\/    \  \::/
+     \__\/       \__\/                     \__\/                     \__\/
+EOT
+}
+
+# Print swag
 smoll_cat_swag
+
+# Print fortune
+
+# Fortune
+echo
+/usr/games/fortune -s
+echo
+
