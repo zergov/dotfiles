@@ -1,4 +1,4 @@
-let mapleader = "\<Space>"
+let mapleader = "\<space>"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	nvim plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -28,12 +28,17 @@ Plug 'Valloric/YouCompleteMe'
 Plug 'neomake/neomake'
 " BufExplorer | navigate in current buffers
 Plug 'jlanzarotta/bufexplorer'
+" Find and replace in vim
+Plug 'brooth/far.vim'
+" supertab
+Plug 'ervandew/supertab'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	Python
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Python auto complete
 Plug 'davidhalter/jedi-vim'
+Plug 'Vimjas/vim-python-pep8-indent'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	Javascript
@@ -43,6 +48,20 @@ Plug 'flowtype/vim-flow'
 Plug 'benjie/neomake-local-eslint.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"	TypeScript
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'leafgarland/typescript-vim'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"	Ruby
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'tpope/vim-rails'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   Go
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'fatih/vim-go'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	Style
@@ -154,6 +173,9 @@ nmap <leader>z :BufExplorerHorizontalSplit<cr>
 map q: :q
 nnoremap <Leader>F :Ack!<Space>
 
+" run make
+nmap <leader>m :make<cr>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Nerd Commenter
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -164,11 +186,19 @@ let g:NERDCompactSexyComs = 1
 
 let g:ycm_filetype_blacklist = {
       \ 'ruby' : 1,
+      \ 'python': 1,
+      \ 'javascript': 1,
       \}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ack configuration
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 cnoreabbrev Ack Ack!
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Neomake Fixes
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:neomake_css_enabled_makers = []
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Misc
