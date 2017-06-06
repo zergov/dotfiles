@@ -11,5 +11,7 @@ let g:neomake_typescript_tsc_maker = {
           \   '%C%\s%\+%m'
         \ }
 let g:neomake_typescript_enabled_makers = ['tsc']
+
 autocmd! BufWritePost * Neomake
+
 nnoremap <Leader>m :! tsc<CR>

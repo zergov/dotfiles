@@ -21,9 +21,11 @@ set nowrap
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set colorcolumn=79
 highlight ColorColumn guibg=grey
-
-" Don't load youcomplete me
-let g:loaded_youcompleteme = 1
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"	Linting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:neomake_python_enabled_makers = ['flake8']
+autocmd! BufWritePost * Neomake
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	Jedi configuration
