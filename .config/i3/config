@@ -16,7 +16,7 @@ set $mod Mod4
 font pango:System San Francisco 10
 
 # dpi settings (when third parties don't read from Xresources)
-exec_always xrandr --dpi 160
+exec_always xrandr --dpi 200
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -33,7 +33,7 @@ exec_always xrandr --dpi 160
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec xterm
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -187,7 +187,7 @@ bar {
 
 # start rofi (a program launcher)
 #bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 800 -bw 0 -color-window "$bg-color,$bg-color,$bg-color" -color-normal "#fdf6e3,#002b36,#eee8d5,#586e75,#eee8d5" -bg-font "System San Francisco Display 18"
-bindsym $mod+d exec rofi -show
+bindsym $mod+d exec rofi -show run
 
 # Lock the screen
 bindsym $mod+shift+x exec /home/zergov/.config/i3/lock.sh
@@ -210,8 +210,14 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
+# Always refresh Xresources file
+exec_always xrdb ~/.Xresources
+
 # start guake on launch
 exec guake
+
+# power management tool
+exec xfce4-power-manager 
 
 # start network management tool
 exec --no-startup-id nm-applet
