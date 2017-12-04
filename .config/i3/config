@@ -223,6 +223,7 @@ exec xfce4-power-manager
 exec --no-startup-id nm-applet
 
 # TODO: start Slack in its own workspace
+assign [class="(?i)Slack"] $workspace9
 
 # start compton (fade in transition animations)
 exec_always compton -f
