@@ -1,5 +1,3 @@
-Xft.dpi: 200
-
 XTerm*faceName: monospace
 xterm*faceSize: 10
 xterm*vt100*geometry: 80x60
