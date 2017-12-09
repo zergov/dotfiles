@@ -1,5 +1,5 @@
 XTerm*faceName: monospace
-xterm*faceSize: 10
+xterm*faceSize: 12
 xterm*vt100*geometry: 80x60
 xterm*saveLines: 16384
 xterm*loginShell: true
