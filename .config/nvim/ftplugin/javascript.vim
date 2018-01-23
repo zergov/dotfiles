@@ -1,9 +1,10 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	Colorscheme for Javascripts files.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-syntax on
+set termguicolors
+let g:hybrid_custom_term_colors = 1
 set background=dark
-colorscheme gruvbox
+colorscheme hybrid
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	Tabs and indent
@@ -22,38 +23,25 @@ set nowrap
 set colorcolumn=130
 highlight ColorColumn guibg=grey
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	Always use the JSX syntax highlighting
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:jsx_ext_required = 0
+let g:jsx_ext_required = 1
+" flow
+let g:flow#autoclose = 1
+
+let g:NERDCustomDelimiters = { 'javascript': { 'left': '/**','right': '*/' } }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"	Syntastics options (eslint)
+"	Linting
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_jsx_enabled_makers = ['eslint' ]
+autocmd! BufWritePost * Neomake
+" Disable flow on save since we're using neomake
+let g:flow#enable = 1
 
-let g:syntastic_javascript_checkers = ['eslint']
-
-" Override eslint with local version where necessary.
-let local_eslint = finddir('node_modules', '.;') . '/.bin/eslint'
-if matchstr(local_eslint, "^\/\\w") == ''
-  let local_eslint = getcwd() . "/" . local_eslint
-endif
-if executable(local_eslint)
-  let g:syntastic_javascript_eslint_exec = local_eslint
-endif
-
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
-let g:syntastic_style_error_symbol = '✗'
-let g:syntastic_style_warning_symbol = '⚠'
-let g:syntastic_auto_loc_list=1
-let g:syntastic_aggregate_errors = 1
-
-let g:syntastic_loc_list_height = 5
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"	Bindings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Run jest tests
+nnoremap <Leader>r :! ./node_modules/jest/bin/jest.js<CR>
+nnoremap <Leader>g :FlowJumpToDef<CR>

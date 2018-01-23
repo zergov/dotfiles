@@ -2,7 +2,7 @@
 	email = jonathan.lalande.1@ens.etsmtl.ca
 	name = Jonathan Lalande
 [core]
-        editor = nvim
+        editor = vim
 
 [alias]
         hide = update-index --assume-unchanged
@@ -10,6 +10,6 @@
         l = log --graph
         s = status
         d = diff
-        
+
         # Switch to a branch, creating it if necessary
 	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"

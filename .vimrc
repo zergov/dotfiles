@@ -1,64 +1,12 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+let mapleader = "\<space>"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"	nvim plugins
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+call plug#begin('~/.vim/plugged')
+source ~/.vim/plugins.vim
+call plug#end()
 
-" supertab
-Plugin 'ervandew/supertab'
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-" CTRL-P for vim"
-Plugin 'ctrlpvim/ctrlp.vim'
-
-" PEP8 checking for pyhton " 
-Plugin 'nvie/vim-flake8'
-
-" Air line powerbar "
-Plugin 'vim-airline/vim-airline'
-
-"Fugitive git"
-Plugin 'tpope/vim-fugitive'
-
-" vim-surround "
-Plugin 'tpope/vim-surround'
-
-" python mode
-Plugin 'klen/python-mode'
-
-" Jedi
-Plugin 'davidhalter/jedi-vim'
-
-"Emmet 
-Plugin 'mattn/emmet-vim'
-
-" Syntastic
-Plugin 'scrooloose/syntastic'
-
-" vim-jsx
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
-
-" NerdTree
-Plugin 'scrooloose/nerdtree'
-
-" Tmuxline
-Plugin 'edkolev/tmuxline.vim'
-
-" Monokai theme
-Plugin 'crusoexia/vim-monokai'
-
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	Color and fonts
@@ -75,8 +23,9 @@ set encoding=utf-8
 set fileencoding=utf-8  " The encoding written to file.
 
 " colorscheme "
-set t_Co=256
-colorscheme monokai
+set termguicolors
+set background=dark
+colorscheme gruvbox
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	BackUp and shits
@@ -86,10 +35,10 @@ set nowb
 set noswapfile
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"	Tabs and indent
+"	Defaults Tabs and indent
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set expandtab
-set tabstop=8
+set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set autoindent
@@ -99,63 +48,65 @@ set nowrap
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   others
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set shell=/bin/bash
-set nocompatible
+set number
 set hidden
+
+augroup reload_vimrc " {
+    autocmd!
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END " }
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   Search
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set incsearch
-
-" If you prefer the Omni-Completion tip window to close when a selection is
-" " made, these lines close it on movement in insert mode or when leaving
-" " insert mode
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-
-" Airline powerbar auto enable
-let g:airline#extensions#tabline#enabled = 1
-
-" Make super tab use the autocomplete from the context.
-let g:SuperTabDefaultCompletionType = 'context'
+set ignorecase
+set smartcase
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Always show the status line
+"   Copy and paste
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set laststatus=2
+set clipboard=unnamedplus
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"set line numbers
+"   Mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set relativenumber
+" Clear highlight on CR
+:nnoremap <CR> :nohlsearch<CR><CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"set paste mode to F2
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set pastetoggle=<F2>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Open NERDTree with CTRL n
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <C-n> :NERDTreeToggle<CR>
 
+" Space + s to save current file
+nmap <leader>s :w<cr>
+
+" You know what this does..
+map q: :q
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"some syntastic settings
+" Nerd Commenter
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_loc_list_height = 5
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
-let g:syntastic_javascript_checkers = ['eslint']
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Misc
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Clean trailling white spaces
+autocmd BufWritePre * %s/\s\+$//e
 
-let g:syntastic_error_symbol = '❌'
-let g:syntastic_style_error_symbol = '⁉️'
-let g:syntastic_warning_symbol = '⚠️'
-let g:syntastic_style_warning_symbol = '💩'
+" Prevent CTRL-P to search in those directories
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+let g:ctrlp_use_caching = 0
+if executable('ag')
+    set grepprg=ag\ --nogroup\ --nocolor
 
-highlight link SyntasticErrorSign SignColumn
-highlight link SyntasticWarningSign SignColumn
-highlight link SyntasticStyleErrorSign SignColumn
-highlight link SyntasticStyleWarningSign SignColumn
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+else
+  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+  let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
+    \ }
+endif

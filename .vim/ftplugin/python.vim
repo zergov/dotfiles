@@ -1,18 +1,34 @@
-
-let python_highlight_all = 1
-let g:python_host_skip_check = 1
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"	Tabs and indent
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set autoindent
+set cursorline
+set nowrap
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"   Pymode
+"	Set a marker at column 79 (PEP8)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:pymode_folding = 0
-let g:pymode_lint = 1
-let g:pymode_rope_extract_method_bind = '<C-c>rm'
-let g:pymode_syntax_all = 1
-let g:pymode_syntax_highlight_self = g:pymode_syntax_all
-let g:pymode_rope_goto_definition_cmd = 'e'
-let g:pymode_trim_whitespaces = 1
-set completeopt=menu,preview
+set colorcolumn=79
+highlight ColorColumn guibg=grey
 
-" Run nosetests
-map <F4> :! nosetests <CR>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"	Linting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:neomake_python_enabled_makers = ['flake8']
+autocmd! BufWritePost * Neomake
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"	Jedi configuration
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType python setlocal completeopt-=preview
+
+let g:jedi#goto_command = "<leader>g"
+let g:jedi#goto_definitions_command = ""
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#rename_command = "<leader>r"

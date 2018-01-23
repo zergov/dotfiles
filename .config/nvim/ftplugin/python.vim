@@ -21,6 +21,11 @@ set nowrap
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set colorcolumn=79
 highlight ColorColumn guibg=grey
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"	Linting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:neomake_python_enabled_makers = ['flake8']
+autocmd! BufWritePost * Neomake
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	Jedi configuration
@@ -33,5 +38,3 @@ let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = "<leader>n"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#rename_command = "<leader>r"
-
-let g:jedi#popup_on_dot = 1

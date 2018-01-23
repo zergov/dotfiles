@@ -1,5 +1,5 @@
-XTerm*faceName: Bitstream Vera Serif Mono
-xterm*faceSize: 11
+XTerm*faceName: monospace
+xterm*faceSize: 12
 xterm*vt100*geometry: 80x60
 xterm*saveLines: 16384
 xterm*loginShell: true
@@ -10,8 +10,9 @@ xterm*eightBitInput: false
 ! allow copy and paste
 XTerm*selectToClipboard:true
 XTerm*VT100.Translations: #override \
-      Shift Ctrl<Key>V: insert-selection(CLIPBOARD) \n\ 
-      Shift Ctrl<Key>V: insert-selection(PRIMARY) \n\ 
+		Shift Ctrl<Key>V: insert-selection(CLIPBOARD)\n
+		Shift Ctrl<Key>V: insert-selection(PRIMARY)\n
+
 
 !BLK Cursor
 #define _color0        #000d18
@@ -89,3 +90,23 @@ XTerm*colorUL        : _colorUL
 XTerm*foreground     : _foreground
 XTerm*background     : _background
 XTerm*cursorColor    : _cursorColor
+
+
+! Rofi configuration
+!
+rofi.color-window: argb:c82d303b, #7c8389, #1d1f21
+
+! State:           'bg',      'fg',    'bgalt',   'hlbg',   'hlfg'
+rofi.color-normal: #402f343f, #f3f4f5, #402f343f, #9575cd,  #f3f4f5
+rofi.color-urgent: #402f343f, #f3f4f5, #402f343f, #9575cd,  #f3f4f5
+rofi.color-active: #402f343f, #f3f4f5, #402f343f, #9575cd,  #f3f4f5
+rofi.width: 100
+rofi.lines: 3
+rofi.columns: 1
+rofi.font: System San Francisco Display 20
+rofi.bw: 0
+rofi.padding: 800
+rofi.eh: 3
+rofi.separator-style: none
+rofi.hide-scrollbar: true
+
