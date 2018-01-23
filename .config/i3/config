@@ -191,7 +191,7 @@ bar {
 bindsym $mod+d exec rofi -show run
 
 # Lock the screen
-#bindsym $mod+shift+x exec /home/zergov/.config/i3/lock.sh
+bindsym $mod+shift+x exec /home/zergov/.config/i3/lock.sh
 
 # Always refresh Xresources file
 exec_always xrdb ~/.Xresources
