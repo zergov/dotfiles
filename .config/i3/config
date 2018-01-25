@@ -197,13 +197,6 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #i
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
-# Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
-
-# Touchpad controls
-bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
-
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play
 bindsym XF86AudioPause exec playerctl pause
@@ -217,7 +210,7 @@ exec_always xrdb ~/.Xresources
 exec guake
 
 # power management tool
-exec xfce4-power-manager 
+exec xfce4-power-manager
 
 # start network management tool
 exec --no-startup-id nm-applet
@@ -229,7 +222,7 @@ assign [class="(?i)Slack"] $workspace9
 exec_always compton -f
 
 # set wallpaper
-exec_always feh --bg-scale /home/zergov/Pictures/wallpaper/blue-mountain.jpg
+exec_always feh --bg-scale /home/zergov/Pictures/wallpaper/wallpaper.png
 
 # set keyboard speed
 exec xset r rate 180 90
