@@ -2,14 +2,15 @@
 	email = jonathan.lalande.1@ens.etsmtl.ca
 	name = Jonathan Lalande
 [core]
-        editor = nvim
+    editor = nvim
 
 [alias]
-        hide = update-index --assume-unchanged
-        unhide = update-index --no-assume-unchanged
-        l = log --graph
-        s = status
-        d = diff
-        
+    clean-branches = "!git co master && git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+    hide = update-index --assume-unchanged
+    unhide = update-index --no-assume-unchanged
+    l = log --graph
+    s = status
+    d = diff
+
         # Switch to a branch, creating it if necessary
 	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
