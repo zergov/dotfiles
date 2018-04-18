@@ -16,7 +16,7 @@ set $mod Mod4
 font pango:System San Francisco 10
 
 # dpi settings (when third parties don't read from Xresources)
-exec_always xrandr --dpi 200
+exec_always xrandr --dpi 140
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -187,7 +187,7 @@ bar {
 
 # start rofi (a program launcher)
 #bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 800 -bw 0 -color-window "$bg-color,$bg-color,$bg-color" -color-normal "#fdf6e3,#002b36,#eee8d5,#586e75,#eee8d5" -bg-font "System San Francisco Display 18"
-bindsym $mod+d exec rofi -show run
+bindsym $mod+d exec rofi -show drun
 
 # Lock the screen
 bindsym $mod+shift+x exec /home/zergov/.config/i3/lock.sh
@@ -219,10 +219,10 @@ exec --no-startup-id nm-applet
 assign [class="(?i)Slack"] $workspace9
 
 # start compton (fade in transition animations)
-exec_always compton -f
+#exec_always compton -f
 
 # set wallpaper
-exec_always feh --bg-scale /home/zergov/Pictures/wallpaper/wallpaper.png
+exec_always feh --bg-scale /home/zergov/Pictures/wallpaper/hex.jpg
 
 # set keyboard speed
 exec xset r rate 180 90
