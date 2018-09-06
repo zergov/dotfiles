@@ -1,6 +1,6 @@
 let mapleader = "\<space>"
 
-source '~/.config/nvim/plugins.vim'
+source ~/.config/nvim/plugins.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	Color and fonts
