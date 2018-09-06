@@ -1,96 +1,10 @@
 let mapleader = "\<space>"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"	nvim plugins
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-call plug#begin('~/.config/nvim/plugged')
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"	Utils
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vim surround
-Plug 'tpope/vim-surround'
-" Git wrapper for Vim
-Plug 'tpope/vim-fugitive'
-" NERDTree : A tree explorer plugin for vim.
-Plug 'scrooloose/nerdtree'
-" NERDCommenter : Comment shits easily
-Plug 'scrooloose/nerdcommenter'
-" CTRL-P : Fuzzy file, buffer, mru, tag, etc finder.
-Plug 'ctrlpvim/ctrlp.vim'
-" Emmet for vim
-Plug 'mattn/emmet-vim'
-" Ack for vim "
-Plug 'mileszs/ack.vim'
-"YCM
-Plug 'Valloric/YouCompleteMe'
-"Neomake
-Plug 'neomake/neomake'
-" BufExplorer | navigate in current buffers
-Plug 'jlanzarotta/bufexplorer'
-" Find and replace in vim
-Plug 'brooth/far.vim'
-" supertab
-Plug 'ervandew/supertab'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"	Python
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Python auto complete
-Plug 'davidhalter/jedi-vim'
-Plug 'Vimjas/vim-python-pep8-indent'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"	Javascript
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" JSX vim "
-Plug 'flowtype/vim-flow'
-Plug 'benjie/neomake-local-eslint.vim'
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"	TypeScript
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'leafgarland/typescript-vim'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"	Ruby
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'tpope/vim-rails'
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"   Go
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'fatih/vim-go'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"	Style
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Better JSON syntax highlighting
-Plug 'elzr/vim-json'
-" Oceanic colorscheme
-Plug 'mhartington/oceanic-next'
-" Gruvbox.
-Plug 'morhetz/gruvbox'
-" powerbar
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-" base16
-Plug 'chriskempson/base16-vim'
-" Vim lucius theme
-Plug 'jonathanfilip/vim-lucius'
-" Hybrid theme
-Plug 'w0ng/vim-hybrid'
-" HTML5 Syntax.
-Plug 'othree/html5.vim'
-
-call plug#end()
-
+source '~/.config/nvim/plugins.vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	Color and fonts
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " Enable syntax highlighting
 syntax enable
 
