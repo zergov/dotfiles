@@ -11,8 +11,17 @@ Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree'
 " NERDCommenter : Comment shits easily
 Plug 'scrooloose/nerdcommenter'
+
 " CTRL-P : Fuzzy file, buffer, mru, tag, etc finder.
-Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+let g:fzf_action = {
+      \ 'ctrl-s': 'split',
+      \ 'ctrl-v': 'vsplit'
+      \ }
+nnoremap <c-p> :FZF<cr>
+
 " Emmet for vim
 Plug 'mattn/emmet-vim'
 "Neomake
@@ -49,5 +58,11 @@ Plug 'morhetz/gruvbox'
 " powerbar
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+
+" Ack plugin
+Plug 'mileszs/ack.vim'
+
+" Buffer navigator
+Plug 'jeetsukumaran/vim-buffergator'
 
 call plug#end()

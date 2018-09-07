@@ -1,6 +1,6 @@
 let mapleader = "\<space>"
 
-source ~/.config/nvim/plugins.vim
+source /Users/jonathanlalande/.config/nvim/plugins.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	Color and fonts
@@ -18,8 +18,7 @@ set fileencoding=utf-8  " The encoding written to file.
 " colorscheme "
 set termguicolors
 set background=dark
-colorscheme base16-default-dark
-let g:airline_theme='oceanicnext'
+colorscheme gruvbox
 let g:javascript_plugin_flow = 1 "does not work in javascript.vim somehow
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -37,13 +36,12 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set autoindent
-set cursorline
 set nowrap
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   others
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set number
+set relativenumber
 set shell=/bin/bash
 set hidden
 
