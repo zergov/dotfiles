@@ -1,9 +1,0 @@
-.vim/bundle
-.vim/eclim
-.vim/.netrwhist
-
-.config/nvim/eclim
-.config/nvim/bundle
-.config/nvim/.netrwhist
-
-.ropeproject
