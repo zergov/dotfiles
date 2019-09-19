@@ -1,6 +1,8 @@
 let mapleader = "\<space>"
 
-source /Users/jonathanlalande/.config/nvim/plugins.vim
+call plug#begin('~/.config/nvim/plugged')
+source ~/.config/nvim/plugins.vim
+call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	Color and fonts
@@ -19,7 +21,7 @@ set fileencoding=utf-8  " The encoding written to file.
 set termguicolors
 set background=dark
 colorscheme gruvbox
-let g:javascript_plugin_flow = 1 "does not work in javascript.vim somehow
+set nocursorline
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	BackUp and shits
@@ -32,9 +34,9 @@ set noswapfile
 "	Defaults Tabs and indent
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set expandtab
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 set autoindent
 set nowrap
 
@@ -42,7 +44,7 @@ set nowrap
 "   others
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set relativenumber
-set shell=/bin/bash
+set number
 set hidden
 
 augroup reload_vimrc " {
@@ -60,57 +62,26 @@ set smartcase
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   Copy and paste
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set clipboard+=unnamedplus
+if has("clipboard")
+  set clipboard=unnamed " copy to the system clipboard
+  if has("unnamedplus") " X11 support
+    set clipboard+=unnamedplus
+  endif
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   Mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"   Location window + neomake keybinds
-nmap <Leader>o :lopen<CR>      " open location window
-nmap <Leader>c :lclose<CR>     " close location window
-nmap <Leader>, :ll<CR>         " go to current error/warning
 " Clear highlight on CR
-:nnoremap <CR> :nohlsearch<CR><CR>
-" Open NERDTree with CTRL n
-map <C-n> :NERDTreeToggle<CR>
-" Space + f to Find selected text in current file
-vnoremap <Leader>f y/<C-R>"<CR>
-" Tab management
-nmap <leader>t :tabnew<CR>
+nnoremap <CR> :nohlsearch<CR><CR>
+
 " Space + s to save current file
 nmap <leader>s :w<cr>
-" Space + z to open BufExplorer
-nmap <leader>z :BufExplorerHorizontalSplit<cr>
-" You know what this does..
-map q: :q
+
+" Plugin mapping
 nnoremap <Leader>F :Ack!<Space>
-
-" run make
-nmap <leader>m :make<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Nerd Commenter
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-" Use compact syntax for prettified multi-line comments
-let g:NERDCompactSexyComs = 1
-
-let g:ycm_filetype_blacklist = {
-      \ 'ruby' : 1,
-      \ 'python': 1,
-      \ 'javascript': 1,
-      \}
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Ack configuration
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <c-p> :FZF<cr>
 cnoreabbrev Ack Ack!
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Neomake Fixes
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:neomake_css_enabled_makers = []
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Misc
@@ -118,16 +89,8 @@ let g:neomake_css_enabled_makers = []
 " Clean trailling white spaces
 autocmd BufWritePre * %s/\s\+$//e
 
-" Prevent CTRL-P to search in those directories
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
-let g:ctrlp_use_caching = 0
-if executable('ag')
-    set grepprg=ag\ --nogroup\ --nocolor
+" run neomake on save, and on changes
+call neomake#configure#automake('w')
 
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-else
-  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-  let g:ctrlp_prompt_mappings = {
-    \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
-    \ }
-endif
+" 256 colors <3
+let &t_Co=256
