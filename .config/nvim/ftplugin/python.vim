@@ -1,15 +1,4 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"	Tabs and indent
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set expandtab
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set autoindent
-set cursorline
-set nowrap
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	Set a marker at column 79 (PEP8)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set colorcolumn=79
@@ -17,7 +6,7 @@ highlight ColorColumn guibg=grey
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	Linting
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:neomake_python_enabled_makers = ['flake8']
+" let g:neomake_python_enabled_makers = ['flake8']
 autocmd! BufWritePost * Neomake
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""

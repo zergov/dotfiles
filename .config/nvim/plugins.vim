@@ -28,8 +28,10 @@ Plug 'mattn/emmet-vim'
 "Neomake
 Plug 'neomake/neomake'
 
-" gruvbox
+" colorscheme
 Plug 'morhetz/gruvbox'
+Plug 'ajmwagar/vim-deus'
+Plug 'keith/parsec.vim'
 
 " Deoplete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -45,6 +47,9 @@ Plug 'jeetsukumaran/vim-buffergator'
 " ack on vim
 Plug 'mileszs/ack.vim'
 let g:ackprg = 'ag --vimgrep'  " Install https://github.com/ggreer/the_silver_searcher, it's fast yo
+
+" cool status bar
+Plug 'itchyny/lightline.vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	Typescript

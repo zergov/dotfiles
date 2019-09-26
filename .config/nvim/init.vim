@@ -10,6 +10,9 @@ call plug#end()
 " Enable syntax highlighting
 syntax enable
 
+" disable mode informations (since im using lightline)
+set noshowmode
+
 " Use Unix line ending
 set ffs=unix,dos,mac
 
@@ -20,7 +23,7 @@ set fileencoding=utf-8  " The encoding written to file.
 " colorscheme "
 set termguicolors
 set background=dark
-colorscheme gruvbox
+colorscheme deus
 set nocursorline
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -34,9 +37,9 @@ set noswapfile
 "	Defaults Tabs and indent
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set expandtab
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set autoindent
 set nowrap
 
@@ -83,6 +86,9 @@ nnoremap <Leader>F :Ack!<Space>
 nnoremap <c-p> :FZF<cr>
 cnoreabbrev Ack Ack!
 
+" resize vertical splits
+nnoremap <silent> <Leader>= :exe "vertical resize +30"<CR>
+nnoremap <silent> <Leader>- :exe "vertical resize -30"<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Misc
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
