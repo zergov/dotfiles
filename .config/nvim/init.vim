@@ -1,8 +1,6 @@
 let mapleader = "\<space>"
 
-call plug#begin('~/.config/nvim/plugged')
 source ~/.config/nvim/plugins.vim
-call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	Color and fonts
@@ -49,11 +47,6 @@ set nowrap
 set relativenumber
 set number
 set hidden
-
-augroup reload_vimrc " {
-    autocmd!
-    autocmd BufWritePost $MYVIMRC source $MYVIMRC
-augroup END " }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   Search
