@@ -75,9 +75,8 @@ nnoremap <CR> :nohlsearch<CR><CR>
 nmap <leader>s :w<cr>
 
 " Plugin mapping
-nnoremap <Leader>F :Ack!<Space>
-nnoremap <c-p> :FZF<cr>
 cnoreabbrev Ack Ack!
+nnoremap <Leader>f :Ack!<Space>
 
 " resize vertical splits
 nnoremap <silent> <Leader>= :exe "vertical resize +30"<CR>
@@ -93,3 +92,10 @@ call neomake#configure#automake('w')
 
 " 256 colors <3
 let &t_Co=256
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Custom commands
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" :Findnotes    - search for keywords in my personal notes
+:command -nargs=+ Findnotes :Ack! "<args>" ~/notes<Space>
