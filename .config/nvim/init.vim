@@ -21,7 +21,7 @@ set fileencoding=utf-8  " The encoding written to file.
 " colorscheme "
 set termguicolors
 set background=dark
-colorscheme deus
+colorscheme zenburn
 set nocursorline
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""

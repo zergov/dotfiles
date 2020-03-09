@@ -34,10 +34,11 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'morhetz/gruvbox'
     Plug 'ajmwagar/vim-deus'
     Plug 'keith/parsec.vim'
+    Plug 'jnurmine/Zenburn'
 
     " Deoplete
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    let g:deoplete#enable_at_startup = 1
+    " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    " let g:deoplete#enable_at_startup = 1
 
     " supertab
     Plug 'ervandew/supertab'
@@ -57,9 +58,9 @@ call plug#begin('~/.config/nvim/plugged')
     "	Typescript
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     Plug 'leafgarland/typescript-vim'
-    Plug 'HerringtonDarkholme/yats.vim'
-    Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
-    Plug 'Shougo/denite.nvim'
+    " Plug 'HerringtonDarkholme/yats.vim'
+    " Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+    " Plug 'Shougo/denite.nvim'
 
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "	Python
