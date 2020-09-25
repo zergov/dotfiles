@@ -1,6 +1,7 @@
 ln -s $PWD/.gitconfig $HOME/.gitconfig
 ln -s $PWD/.tmux.conf $HOME/.tmux.conf
 
+ln -s $PWD/git-commands $HOME/git-commands
 
 mkdir -p $HOME/.config/nvim
 ln -s $PWD/.config/nvim/init.vim $HOME/.config/nvim/init.vim

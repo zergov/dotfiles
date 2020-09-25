@@ -28,7 +28,7 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'mattn/emmet-vim'
 
     "Neomake
-    Plug 'neomake/neomake'
+    " Plug 'neomake/neomake'
 
     " colorscheme
     Plug 'morhetz/gruvbox'
@@ -37,8 +37,8 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'jnurmine/Zenburn'
 
     " Deoplete
-    " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    " let g:deoplete#enable_at_startup = 1
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    let g:deoplete#enable_at_startup = 1
 
     " supertab
     Plug 'ervandew/supertab'
@@ -58,6 +58,7 @@ call plug#begin('~/.config/nvim/plugged')
     "	Typescript
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     Plug 'leafgarland/typescript-vim'
+    Plug 'peitalin/vim-jsx-typescript'
     " Plug 'HerringtonDarkholme/yats.vim'
     " Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
     " Plug 'Shougo/denite.nvim'
@@ -102,5 +103,15 @@ call plug#begin('~/.config/nvim/plugged')
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
     Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
+
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    "	Graphql
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    Plug 'jparise/vim-graphql'
+
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    " Elm
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    Plug 'ElmCast/elm-vim'
 
 call plug#end()

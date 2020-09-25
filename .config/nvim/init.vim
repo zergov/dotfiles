@@ -21,7 +21,7 @@ set fileencoding=utf-8  " The encoding written to file.
 " colorscheme "
 set termguicolors
 set background=dark
-colorscheme zenburn
+colorscheme deus
 set nocursorline
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -35,9 +35,9 @@ set noswapfile
 "	Defaults Tabs and indent
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set expandtab
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 set autoindent
 set nowrap
 
@@ -88,7 +88,7 @@ nnoremap <silent> <Leader>- :exe "vertical resize -30"<CR>
 autocmd BufWritePre * %s/\s\+$//e
 
 " run neomake on save, and on changes
-call neomake#configure#automake('w')
+" call neomake#configure#automake('w')
 
 " 256 colors <3
 let &t_Co=256
@@ -99,3 +99,4 @@ let &t_Co=256
 
 " :Findnotes    - search for keywords in my personal notes
 :command -nargs=+ Findnotes :Ack! "<args>" ~/notes<Space>
+:command Notes :e ~/notes
