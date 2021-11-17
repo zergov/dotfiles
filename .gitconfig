@@ -3,9 +3,14 @@
     name = Jonathan Lalande
 [core]
     editor = nvim
+	commitGraph = true
 [alias]
     hide = update-index --assume-unchanged
     unhide = update-index --no-assume-unchanged
-    l = log --graph
+    l =  log --pretty=oneline --abbrev-commit
     s = status
     d = diff
+[diff]
+	algorithm = patience
+[gc]
+	writeCommitGraph = true

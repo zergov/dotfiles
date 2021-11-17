@@ -1,117 +1,93 @@
 call plug#begin('~/.config/nvim/plugged')
 
-    " Vim surround
-    Plug 'tpope/vim-surround'
+Plug 'tpope/vim-surround'   " surrrrrrrrrrrrrrrrrrrroundingssssssssssss
+Plug 'tpope/vim-fugitive'   " Git wrapper
+Plug 'tpope/vim-rhubarb'    " enable GBrowse for github repositories
 
-    " Git wrapper for Vim
-    Plug 'tpope/vim-fugitive'
+" A tree explorer plugin for vim.
+Plug 'scrooloose/nerdtree'
+map <C-n> :NERDTreeToggle<CR>
 
-    " NERDTree : A tree explorer plugin for vim.
-    Plug 'scrooloose/nerdtree'
-    map <C-n> :NERDTreeToggle<CR>
+" NERDCommenter : Comment shits easily
+Plug 'scrooloose/nerdcommenter'
+let g:NERDSpaceDelims = 1       " Add spaces after comment delimiters by default
+let g:NERDCompactSexyComs = 1   " Use compact syntax for prettified multi-line comments
 
-    " NERDCommenter : Comment shits easily
-    Plug 'scrooloose/nerdcommenter'
-    " Add spaces after comment delimiters by default
-    let g:NERDSpaceDelims = 1
-    " Use compact syntax for prettified multi-line comments
-    let g:NERDCompactSexyComs = 1
+" FZF : Fuzzy file, buffer, mru, tag, etc finder.
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+let g:fzf_action = { 'ctrl-s': 'split', 'ctrl-v': 'vsplit' }
+let $FZF_DEFAULT_COMMAND = 'rg --files --glob="!*.rbi"'
+nnoremap <c-p> :FZF<cr>
 
-    " FZF : Fuzzy file, buffer, mru, tag, etc finder.
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-    Plug 'junegunn/fzf.vim'
-    let g:fzf_action = { 'ctrl-s': 'split', 'ctrl-v': 'vsplit' }
-    " let $FZF_DEFAULT_COMMAND = 'ag -g ""'
-    nnoremap <c-p> :FZF<cr>
+" Press tab to navigate omni
+Plug 'ervandew/supertab'
+let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
 
-    " Emmet for vim
-    Plug 'mattn/emmet-vim'
+" Ack on vim
+Plug 'mileszs/ack.vim'
+let g:ackprg = 'ag --vimgrep'  " Install https://github.com/ggreer/the_silver_searcher, it's fast yo
 
-    "Neomake
-    " Plug 'neomake/neomake'
+" Deoplete
+" if has('nvim')
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" else
+" Plug 'Shougo/deoplete.nvim'
+" Plug 'roxma/nvim-yarp'
+" Plug 'roxma/vim-hug-neovim-rpc'
+" endif
+" let g:deoplete#enable_at_startup = 1
 
-    " colorscheme
-    Plug 'morhetz/gruvbox'
-    Plug 'ajmwagar/vim-deus'
-    Plug 'keith/parsec.vim'
-    Plug 'jnurmine/Zenburn'
+Plug 'jeetsukumaran/vim-buffergator'  " buffer explorer
+Plug 'itchyny/lightline.vim'          " cool status bar
 
-    " Deoplete
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    let g:deoplete#enable_at_startup = 1
+" colorscheme
+Plug 'morhetz/gruvbox'
+Plug 'ajmwagar/vim-deus'
+Plug 'keith/parsec.vim'
+Plug 'jnurmine/Zenburn'
+Plug 'AlessandroYorba/Alduin'
 
-    " supertab
-    Plug 'ervandew/supertab'
-    let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+Plug 'autozimu/LanguageClient-neovim'
+let g:LanguageClient_diagnosticsEnable = 0
+let g:LanguageClient_serverCommands = {
+      \ 'ruby': ['bundle', 'exec', 'srb', 'tc', '--lsp'],
+      \ 'typescript': ['typescript-language-server', '--stdio'],
+      \ 'typescript.tsx': ['typescript-language-server', '--stdio'],
+      \ }
 
-    " buffer explorer
-    Plug 'jeetsukumaran/vim-buffergator'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"	Typescript
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 
-    " ack on vim
-    Plug 'mileszs/ack.vim'
-    let g:ackprg = 'ag --vimgrep'  " Install https://github.com/ggreer/the_silver_searcher, it's fast yo
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"	Javascript & JSX
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
 
-    " cool status bar
-    Plug 'itchyny/lightline.vim'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"	HTML5
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'othree/html5.vim'
+Plug 'mattn/emmet-vim'
 
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    "	Typescript
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    Plug 'leafgarland/typescript-vim'
-    Plug 'peitalin/vim-jsx-typescript'
-    " Plug 'HerringtonDarkholme/yats.vim'
-    " Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
-    " Plug 'Shougo/denite.nvim'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"	Ruby
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'vim-ruby/vim-ruby'
+Plug 'Shopify/vim-sorbet', { 'branch': 'main' } " Turns sorbet signatures to comment colorscheme
 
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    "	Python
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    Plug 'davidhalter/jedi-vim'
-    Plug 'Vimjas/vim-python-pep8-indent'
-    Plug 'zchee/deoplete-jedi'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"	Elixir
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'elixir-editors/vim-elixir'
 
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    "	Javascript & JSX
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    Plug 'pangloss/vim-javascript'
-    Plug 'mxw/vim-jsx'
-
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    "	PHP
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    Plug 'StanAngeloff/php.vim'
-    Plug '2072/PHP-Indenting-for-VIm'
-
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    "	HTML5
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    Plug 'othree/html5.vim'
-
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    "	Ruby
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    Plug 'vim-ruby/vim-ruby'
-    Plug 'tpope/vim-rails'
-
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    "	Elixir
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    Plug 'elixir-editors/vim-elixir'
-
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    "	Go
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-    Plug 'mdempsky/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
-
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    "	Graphql
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    Plug 'jparise/vim-graphql'
-
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    " Elm
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    Plug 'ElmCast/elm-vim'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"	Graphql
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'jparise/vim-graphql'
 
 call plug#end()

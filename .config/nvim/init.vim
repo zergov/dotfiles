@@ -1,38 +1,14 @@
-let mapleader = "\<space>"
-
-source ~/.config/nvim/plugins.vim
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"	Color and fonts
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Enable syntax highlighting
-syntax enable
-
-" disable mode informations (since im using lightline)
-set noshowmode
-
-" Use Unix line ending
-set ffs=unix,dos,mac
-
-" Use UTF-8 encoding
+set ffs=unix
 set encoding=utf-8
-set fileencoding=utf-8  " The encoding written to file.
-
-" colorscheme "
-set termguicolors
-set background=dark
-colorscheme deus
-set nocursorline
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"	BackUp and shits
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set fileencoding=utf-8
 set nobackup
 set nowb
 set noswapfile
 
+source ~/.config/nvim/plugins.vim
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"	Defaults Tabs and indent
+"	  Defaults Tabs and indent
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set expandtab
 set tabstop=2
@@ -42,11 +18,17 @@ set autoindent
 set nowrap
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"   others
+"   look and feel
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+syntax enable
+set termguicolors
+set background=dark
 set relativenumber
 set number
 set hidden
+set nocursorline
+set noshowmode
+colorscheme gruvbox
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   Search
@@ -59,7 +41,7 @@ set smartcase
 "   Copy and paste
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has("clipboard")
-  set clipboard=unnamed " copy to the system clipboard
+  set clipboard=unnamed " copy to system clipboard
   if has("unnamedplus") " X11 support
     set clipboard+=unnamedplus
   endif
@@ -68,11 +50,16 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   Mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let mapleader = "\<space>"
+
 " Clear highlight on CR
 nnoremap <CR> :nohlsearch<CR><CR>
 
 " Space + s to save current file
 nmap <leader>s :w<cr>
+
+" NERDTree remap
+nnoremap <leader>nf :NERDTreeFind<CR>
 
 " Plugin mapping
 cnoreabbrev Ack Ack!
@@ -81,22 +68,27 @@ nnoremap <Leader>f :Ack!<Space>
 " resize vertical splits
 nnoremap <silent> <Leader>= :exe "vertical resize +30"<CR>
 nnoremap <silent> <Leader>- :exe "vertical resize -30"<CR>
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Misc
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Clean trailling white spaces
-autocmd BufWritePre * %s/\s\+$//e
 
-" run neomake on save, and on changes
-" call neomake#configure#automake('w')
+function SetLSPShortcuts()
+  nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
+  nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
+  nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
+  nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
+  nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>
+  nnoremap <leader>la :call LanguageClient_workspace_applyEdit()<CR>
+  nnoremap <leader>lc :call LanguageClient#textDocument_completion()<CR>
+  nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
+  nnoremap <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
+  nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
+endfunction()
 
-" 256 colors <3
-let &t_Co=256
+" LanguageClient-neovim shortcuts (only enabled on supported filetypes)
+augroup LSP
+  autocmd!
+  autocmd FileType ruby,typescript,typescript.tsx call SetLSPShortcuts()
+augroup END
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Custom commands
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd BufWritePre * %s/\s\+$//e " Clean trailling white spaces on save
 
-" :Findnotes    - search for keywords in my personal notes
-:command -nargs=+ Findnotes :Ack! "<args>" ~/notes<Space>
+:command -nargs=+ Findnotes :Ack! "<args>" ~/notes<Space> " :Findnotes - search for keywords in personal notes
 :command Notes :e ~/notes
