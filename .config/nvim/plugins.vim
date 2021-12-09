@@ -48,7 +48,10 @@ Plug 'keith/parsec.vim'
 Plug 'jnurmine/Zenburn'
 Plug 'AlessandroYorba/Alduin'
 
-Plug 'autozimu/LanguageClient-neovim'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 let g:LanguageClient_diagnosticsEnable = 0
 let g:LanguageClient_serverCommands = {
       \ 'ruby': ['bundle', 'exec', 'srb', 'tc', '--lsp'],
