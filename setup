@@ -1,8 +1,12 @@
 ln -s $PWD/.gitconfig $HOME/.gitconfig
 ln -s $PWD/.tmux.conf $HOME/.tmux.conf
-
 ln -s $PWD/git-commands $HOME/git-commands
 
+# nvim configuration
 mkdir -p $HOME/.config/nvim
 ln -s $PWD/.config/nvim/init.vim $HOME/.config/nvim/init.vim
 ln -s $PWD/.config/nvim/plugins.vim $HOME/.config/nvim/plugins.vim
+
+# install vim-plug and install all plugins
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+nvim -c ":call BootstrapSpin()"
