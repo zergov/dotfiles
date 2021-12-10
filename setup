@@ -1,5 +1,6 @@
 ln -s $PWD/.gitconfig $HOME/.gitconfig
 ln -s $PWD/.tmux.conf $HOME/.tmux.conf
+ln -s $PWD/.pryrc $HOME/.pryrc
 ln -s $PWD/git-commands $HOME/git-commands
 
 # oh-my-zsh
