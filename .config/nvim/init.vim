@@ -48,9 +48,13 @@ if has("clipboard")
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"   Mappings
+"   Mappings & commands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader = "\<space>"
+
+:command Notes :e ~/notes
+:command Nvimconf :e ~/.config/nvim/init.vim
+:command Nvimplugins :e ~/.config/nvim/plugins.vim
 
 " Clear highlight on CR
 nnoremap <CR> :nohlsearch<CR><CR>
@@ -89,9 +93,6 @@ augroup LSP
 augroup END
 
 autocmd BufWritePre * %s/\s\+$//e " Clean trailling white spaces on save
-
-:command -nargs=+ Findnotes :Ack! "<args>" ~/notes<Space> " :Findnotes - search for keywords in personal notes
-:command Notes :e ~/notes
 
 function BootstrapSpin()
   :PlugInstall
