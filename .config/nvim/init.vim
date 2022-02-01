@@ -89,7 +89,7 @@ endfunction()
 " LanguageClient-neovim shortcuts (only enabled on supported filetypes)
 augroup LSP
   autocmd!
-  autocmd FileType ruby,typescript,typescript.tsx call SetLSPShortcuts()
+  autocmd FileType ruby,typescript,typescriptreact call SetLSPShortcuts()
 augroup END
 
 autocmd BufWritePre * %s/\s\+$//e " Clean trailling white spaces on save

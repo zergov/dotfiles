@@ -26,7 +26,9 @@ let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
 
 " Ack on vim
 Plug 'mileszs/ack.vim'
-let g:ackprg = 'ag --vimgrep'  " Install https://github.com/ggreer/the_silver_searcher, it's fast yo
+let g:ackprg = 'rg --vimgrep --type-not sql --smart-case' " Trying ack with ripgrep now
+" Any empty ack search will search for the work the cursor is on
+let g:ack_use_cword_for_empty_search = 1
 
 " Deoplete
 " if has('nvim')
@@ -56,7 +58,7 @@ let g:LanguageClient_diagnosticsEnable = 0
 let g:LanguageClient_serverCommands = {
       \ 'ruby': ['bundle', 'exec', 'srb', 'tc', '--lsp'],
       \ 'typescript': ['typescript-language-server', '--stdio'],
-      \ 'typescript.tsx': ['typescript-language-server', '--stdio'],
+      \ 'typescriptreact': ['typescript-language-server', '--stdio'],
       \ }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
