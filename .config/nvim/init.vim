@@ -98,3 +98,5 @@ function BootstrapSpin()
   :PlugInstall
   :qa
 endfunction()
+
+map <leader>y :w !pbcopy <enter>
