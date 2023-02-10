@@ -18,4 +18,5 @@ npm install -g typescript-language-server typescript
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 nvim -c ":call BootstrapSpin()"
 
+# Make sure default keybinds for fzf are loaded on login
 echo "source /usr/share/doc/fzf/examples/key-bindings.zsh" >> ~/.zshrc
