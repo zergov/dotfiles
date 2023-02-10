@@ -4,12 +4,10 @@ Plug 'tpope/vim-surround'   " surrrrrrrrrrrrrrrrrrrroundingssssssssssss
 Plug 'tpope/vim-fugitive'   " Git wrapper
 Plug 'tpope/vim-rhubarb'    " enable GBrowse for github repositories
 
-" A tree explorer plugin for vim.
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'  " A tree explorer plugin for vim.
 map <C-n> :NERDTreeToggle<CR>
 
-" NERDCommenter : Comment shits easily
-Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter' " NERDCommenter : Comment shits easily
 let g:NERDSpaceDelims = 1       " Add spaces after comment delimiters by default
 let g:NERDCompactSexyComs = 1   " Use compact syntax for prettified multi-line comments
 
@@ -20,35 +18,13 @@ let g:fzf_action = { 'ctrl-s': 'split', 'ctrl-v': 'vsplit' }
 let $FZF_DEFAULT_COMMAND = 'rg --files --glob="!*.rbi"'
 nnoremap <c-p> :FZF<cr>
 
-" Press tab to navigate omni
-Plug 'ervandew/supertab'
-let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
-
-" Ack on vim
-Plug 'mileszs/ack.vim'
+Plug 'mileszs/ack.vim' " Ack bindings for vim
 let g:ackprg = 'rg --vimgrep --type-not sql --smart-case' " Trying ack with ripgrep now
-" Any empty ack search will search for the work the cursor is on
-let g:ack_use_cword_for_empty_search = 1
-
-" Deoplete
-" if has('nvim')
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" else
-" Plug 'Shougo/deoplete.nvim'
-" Plug 'roxma/nvim-yarp'
-" Plug 'roxma/vim-hug-neovim-rpc'
-" endif
-" let g:deoplete#enable_at_startup = 1
+let g:ack_use_cword_for_empty_search = 1 " Any empty ack search will search for the work the cursor is on
 
 Plug 'jeetsukumaran/vim-buffergator'  " buffer explorer
 Plug 'itchyny/lightline.vim'          " cool status bar
-
-" colorscheme
-Plug 'morhetz/gruvbox'
-Plug 'ajmwagar/vim-deus'
-Plug 'keith/parsec.vim'
-Plug 'jnurmine/Zenburn'
-Plug 'AlessandroYorba/Alduin'
+Plug 'morhetz/gruvbox'                " colorscheme
 
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
@@ -62,19 +38,15 @@ let g:LanguageClient_serverCommands = {
       \ }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"	Typescript
+"	JS / Typescript
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"	Javascript & JSX
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"	HTML5
+"	HTML
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'othree/html5.vim'
 Plug 'mattn/emmet-vim'
@@ -84,11 +56,6 @@ Plug 'mattn/emmet-vim'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'vim-ruby/vim-ruby'
 Plug 'Shopify/vim-sorbet', { 'branch': 'main' } " Turns sorbet signatures to comment colorscheme
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"	Elixir
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'elixir-editors/vim-elixir'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	Graphql
