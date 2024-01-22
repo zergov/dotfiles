@@ -3,8 +3,11 @@ ln -s $PWD/.tmux.conf $HOME/.tmux.conf
 ln -s $PWD/.pryrc $HOME/.pryrc
 ln -s $PWD/git-commands $HOME/git-commands
 
-# oh-my-zsh
+# install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# install tmux package manager
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # nvim configuration
 mkdir -p $HOME/.config/nvim
