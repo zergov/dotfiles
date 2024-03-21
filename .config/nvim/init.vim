@@ -62,6 +62,9 @@ nnoremap <CR> :nohlsearch<CR><CR>
 " Space + s to save current file
 nmap <leader>s :w<cr>
 
+" yank path of current buffer
+nmap <leader>p :let @+ = expand("%")<CR>
+
 " NERDTree remap
 nnoremap <leader>nf :NERDTreeFind<CR>
 
