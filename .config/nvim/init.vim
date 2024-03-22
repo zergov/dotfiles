@@ -76,25 +76,6 @@ nnoremap <Leader>f :Ack!<Space>
 nnoremap <silent> <Leader>= :exe "vertical resize +30"<CR>
 nnoremap <silent> <Leader>- :exe "vertical resize -30"<CR>
 
-function SetLSPShortcuts()
-  nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
-  nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
-  nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
-  nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
-  nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>
-  nnoremap <leader>la :call LanguageClient_workspace_applyEdit()<CR>
-  nnoremap <leader>lc :call LanguageClient#textDocument_completion()<CR>
-  nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
-  nnoremap <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
-  nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
-endfunction()
-
-" LanguageClient-neovim shortcuts (only enabled on supported filetypes)
-augroup LSP
-  autocmd!
-  autocmd FileType ruby,typescript,typescriptreact call SetLSPShortcuts()
-augroup END
-
 autocmd BufWritePre * %s/\s\+$//e " Clean trailling white spaces on save
 
 function BootstrapSpin()
@@ -103,3 +84,14 @@ function BootstrapSpin()
 endfunction()
 
 map <leader>y :w !pbcopy <enter>
+
+lua << EOF
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    vim.keymap.set('n', '<leader>ld', vim.lsp.buf.definition, { buffer = args.buf })
+    vim.keymap.set('n', '<leader>lh', vim.lsp.buf.hover, { buffer = args.buf })
+    vim.keymap.set('n', '<leader>lx', vim.lsp.buf.references, { buffer = args.buf })
+    vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, { buffer = args.buf })
+  end,
+})
+EOF

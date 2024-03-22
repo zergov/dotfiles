@@ -26,17 +26,6 @@ Plug 'jeetsukumaran/vim-buffergator'  " buffer explorer
 Plug 'itchyny/lightline.vim'          " cool status bar
 Plug 'morhetz/gruvbox'                " colorscheme
 
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-let g:LanguageClient_diagnosticsEnable = 0
-let g:LanguageClient_serverCommands = {
-      \ 'ruby': ['bundle', 'exec', 'srb', 'tc', '--lsp'],
-      \ 'typescript': ['typescript-language-server', '--stdio'],
-      \ 'typescriptreact': ['typescript-language-server', '--stdio'],
-      \ }
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	JS / Typescript
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
