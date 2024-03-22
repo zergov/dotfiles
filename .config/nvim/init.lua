@@ -36,6 +36,18 @@ vim.o.incsearch = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
+------------------------------------------------------------
+--   LSP keybinds
+------------------------------------------------------------
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    vim.keymap.set('n', '<leader>ld', vim.lsp.buf.definition, { buffer = args.buf })
+    vim.keymap.set('n', '<leader>lh', vim.lsp.buf.hover, { buffer = args.buf })
+    vim.keymap.set('n', '<leader>lx', vim.lsp.buf.references, { buffer = args.buf })
+    vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, { buffer = args.buf })
+  end,
+})
+
 vim.cmd([[
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   Copy and paste
@@ -86,13 +98,5 @@ endfunction()
 map <leader>y :w !pbcopy <enter>
 
 lua << EOF
-vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(args)
-    vim.keymap.set('n', '<leader>ld', vim.lsp.buf.definition, { buffer = args.buf })
-    vim.keymap.set('n', '<leader>lh', vim.lsp.buf.hover, { buffer = args.buf })
-    vim.keymap.set('n', '<leader>lx', vim.lsp.buf.references, { buffer = args.buf })
-    vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, { buffer = args.buf })
-  end,
-})
 EOF
 ]])
