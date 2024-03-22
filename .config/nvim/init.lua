@@ -29,14 +29,14 @@ vim.o.nocursorline = true
 vim.o.noshowmode = true
 vim.cmd.colorscheme("gruvbox")
 
-vim.cmd([[
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"   Search
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set incsearch
-set ignorecase
-set smartcase
+------------------------------------------------------------
+--   Search
+------------------------------------------------------------
+vim.o.incsearch = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
 
+vim.cmd([[
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   Copy and paste
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
