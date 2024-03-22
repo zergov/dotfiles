@@ -1,36 +1,35 @@
+vim.cmd("source ~/.config/nvim/plugins.vim")
+
+vim.o.ffs= "unix"
+vim.o.encoding= "utf-8"
+vim.o.fileencoding = "utf-8"
+vim.o.nobackup = true
+vim.o.nowb = true
+vim.o.noswapfile = true
+
+--------------------------------------------------------------
+--	  Defaults Tabs and indent
+--------------------------------------------------------------
+vim.o.expandtab = true
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.softtabstop = 2
+vim.o.autoindent = true
+vim.o.nowrap = true
+
+------------------------------------------------------------
+--   look and feel
+------------------------------------------------------------
+vim.o.termguicolors = true
+vim.o.background = "dark"
+vim.o.relativenumber = true
+vim.o.number = true
+vim.o.hidden = true
+vim.o.nocursorline = true
+vim.o.noshowmode = true
+vim.cmd.colorscheme("gruvbox")
+
 vim.cmd([[
-set ffs=unix
-set encoding=utf-8
-set fileencoding=utf-8
-set nobackup
-set nowb
-set noswapfile
-
-source ~/.config/nvim/plugins.vim
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"	  Defaults Tabs and indent
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set expandtab
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set autoindent
-set nowrap
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"   look and feel
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-syntax enable
-set termguicolors
-set background=dark
-set relativenumber
-set number
-set hidden
-set nocursorline
-set noshowmode
-colorscheme gruvbox
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   Search
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
