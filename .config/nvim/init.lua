@@ -1,3 +1,4 @@
+vim.cmd([[
 set ffs=unix
 set encoding=utf-8
 set fileencoding=utf-8
@@ -95,3 +96,4 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 EOF
+]])
