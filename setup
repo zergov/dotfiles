@@ -11,10 +11,12 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # nvim configuration
 mkdir -p $HOME/.config/nvim
-mkdir -p $HOME/.config/nvim/ftplugin
 ln -s $PWD/.config/nvim/init.vim $HOME/.config/nvim/init.vim
 ln -s $PWD/.config/nvim/plugins.vim $HOME/.config/nvim/plugins.vim
+
+mkdir -p $HOME/.config/nvim/ftplugin
 ln -s $PWD/.config/nvim/ftplugin/ruby.lua $HOME/.config/nvim/ftplugin/ruby.lua
+ln -s $PWD/.config/nvim/ftplugin/c.lua $HOME/.config/nvim/ftplugin/c.lua
 
 # LSP servers installation
 npm install -g typescript-language-server typescript
