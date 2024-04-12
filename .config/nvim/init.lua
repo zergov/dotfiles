@@ -70,12 +70,9 @@ vim.api.nvim_set_keymap('n', '<leader>-', ':exe "vertical resize -30"<CR>', { no
 vim.api.nvim_set_keymap('n', '<leader>-', ':exe "vertical resize -30"<CR>', { noremap = false})
 vim.api.nvim_set_keymap('', '<leader>y', ':w !pbcopy <CR>', { noremap = false})
 
+function _G.install_plugins()
+  vim.cmd(':PlugInstall')
+  vim.cmd(':qa')
+end
+
 -- autocmd BufWritePre * %s/\s\+$//e " Clean trailling white spaces on save
-vim.cmd([[
-
-function BootstrapSpin()
-  :PlugInstall
-  :qa
-endfunction()
-
-]])
