@@ -1,3 +1,5 @@
+vim.g.mapleader = ' '
+
 vim.cmd("source ~/.config/nvim/plugins.vim")
 
 vim.o.ffs= "unix"
@@ -62,8 +64,6 @@ vim.cmd([[
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   Mappings & commands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader = "\<space>"
-
 :command Notes :e ~/notes
 :command Nvimconf :e ~/.config/nvim/init.vim
 :command Nvimplugins :e ~/.config/nvim/plugins.vim
