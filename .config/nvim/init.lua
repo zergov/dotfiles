@@ -48,17 +48,17 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-vim.cmd([[
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"   Copy and paste
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if has("clipboard")
-  set clipboard=unnamed " copy to system clipboard
-  if has("unnamedplus") " X11 support
-    set clipboard+=unnamedplus
-  endif
-endif
+------------------------------------------------------------
+--   Copy and paste
+------------------------------------------------------------
+if vim.fn.has('clipboard') then
+  vim.o.clipboard = 'unnamed' -- copy to system clipboard
+  if vim.fn.has('unnamedplus') then -- X11 support
+    vim.o.clipboard = 'unnamedplus'
+  end
+end
 
+vim.cmd([[
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   Mappings & commands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
