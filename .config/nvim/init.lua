@@ -61,13 +61,6 @@ if vim.fn.has('clipboard') then
 end
 
 vim.cmd([[
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"   Mappings & commands
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-:command Notes :e ~/notes
-:command Nvimconf :e ~/.config/nvim/init.vim
-:command Nvimplugins :e ~/.config/nvim/plugins.vim
-
 " Clear highlight on CR
 nnoremap <CR> :nohlsearch<CR><CR>
 
