@@ -60,36 +60,22 @@ if vim.fn.has('clipboard') then
   end
 end
 
+vim.api.nvim_set_keymap('n', '<CR>', ':nohlsearch<CR><CR>', { noremap = true }) -- Clear highlight on CR
+vim.api.nvim_set_keymap('n', '<leader>s', ':w<CR>', { noremap = false})
+vim.api.nvim_set_keymap('n', '<leader>p', ':let @+ = expand("%")<CR>', { noremap = false}) -- yank path of current buffer
+vim.api.nvim_set_keymap('n', '<leader>nf', ':NERDTreeFind<CR>', { noremap = false}) -- focus current buffer's file in NERDTree
+vim.api.nvim_set_keymap('n', '<leader>f', ':Ack! ', { noremap = false})
+vim.api.nvim_set_keymap('n', '<leader>=', ':exe "vertical resize +30"<CR>', { noremap = false})
+vim.api.nvim_set_keymap('n', '<leader>-', ':exe "vertical resize -30"<CR>', { noremap = false})
+vim.api.nvim_set_keymap('n', '<leader>-', ':exe "vertical resize -30"<CR>', { noremap = false})
+vim.api.nvim_set_keymap('', '<leader>y', ':w !pbcopy <CR>', { noremap = false})
+
+-- autocmd BufWritePre * %s/\s\+$//e " Clean trailling white spaces on save
 vim.cmd([[
-" Clear highlight on CR
-nnoremap <CR> :nohlsearch<CR><CR>
-
-" Space + s to save current file
-nmap <leader>s :w<cr>
-
-" yank path of current buffer
-nmap <leader>p :let @+ = expand("%")<CR>
-
-" NERDTree remap
-nnoremap <leader>nf :NERDTreeFind<CR>
-
-" Plugin mapping
-cnoreabbrev Ack Ack!
-nnoremap <Leader>f :Ack!<Space>
-
-" resize vertical splits
-nnoremap <silent> <Leader>= :exe "vertical resize +30"<CR>
-nnoremap <silent> <Leader>- :exe "vertical resize -30"<CR>
-
-autocmd BufWritePre * %s/\s\+$//e " Clean trailling white spaces on save
 
 function BootstrapSpin()
   :PlugInstall
   :qa
 endfunction()
 
-map <leader>y :w !pbcopy <enter>
-
-lua << EOF
-EOF
 ]])
