@@ -51,7 +51,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 ------------------------------------------------------------
---   Copy and paste
+--   Clipboard
 ------------------------------------------------------------
 if vim.fn.has('clipboard') then
   vim.o.clipboard = 'unnamed' -- copy to system clipboard
@@ -60,6 +60,9 @@ if vim.fn.has('clipboard') then
   end
 end
 
+------------------------------------------------------------
+--   Mappings
+------------------------------------------------------------
 vim.api.nvim_set_keymap('n', '<CR>', ':nohlsearch<CR><CR>', { noremap = true }) -- Clear highlight on CR
 vim.api.nvim_set_keymap('n', '<leader>s', ':w<CR>', { noremap = false})
 vim.api.nvim_set_keymap('n', '<leader>p', ':let @+ = expand("%")<CR>', { noremap = false}) -- yank path of current buffer
