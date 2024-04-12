@@ -29,7 +29,7 @@ vim.o.number = true
 vim.o.hidden = true
 vim.o.cursorline = false
 vim.o.showmode = false
-vim.cmd.colorscheme("gruvbox")
+vim.cmd("silent! colorscheme gruvbox")
 
 ------------------------------------------------------------
 --   Search
