@@ -3,9 +3,9 @@ vim.cmd("source ~/.config/nvim/plugins.vim")
 vim.o.ffs= "unix"
 vim.o.encoding= "utf-8"
 vim.o.fileencoding = "utf-8"
-vim.o.nobackup = true
-vim.o.nowb = true
-vim.o.noswapfile = true
+vim.o.backup = false
+vim.o.writebackup = false
+vim.o.swapfile = false
 
 --------------------------------------------------------------
 --	  Defaults Tabs and indent
@@ -15,7 +15,7 @@ vim.o.tabstop = 2
 vim.o.shiftwidth = 2
 vim.o.softtabstop = 2
 vim.o.autoindent = true
-vim.o.nowrap = true
+vim.o.wrap = false
 
 ------------------------------------------------------------
 --   look and feel
@@ -25,8 +25,8 @@ vim.o.background = "dark"
 vim.o.relativenumber = true
 vim.o.number = true
 vim.o.hidden = true
-vim.o.nocursorline = true
-vim.o.noshowmode = true
+vim.o.cursorline = false
+vim.o.showmode = false
 vim.cmd.colorscheme("gruvbox")
 
 ------------------------------------------------------------
