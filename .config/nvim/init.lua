@@ -74,4 +74,6 @@ function _G.install_plugins()
   vim.cmd(':qa')
 end
 
--- autocmd BufWritePre * %s/\s\+$//e " Clean trailling white spaces on save
+vim.cmd([[
+autocmd BufWritePre * %s/\s\+$//e
+]])
