@@ -1,14 +1,5 @@
 vim.cmd("source ~/.config/nvim/plugins.vim")
 
-local lspconfig = require('lspconfig')
-lspconfig.pyright.setup{}
-lspconfig.ruby_lsp.setup{
-  init_options = {
-    formatter = 'standard',
-    linters = { 'standard' },
-  }
-}
-
 vim.g.mapleader = ' '
 
 vim.o.ffs= "unix"
@@ -68,6 +59,18 @@ vim.keymap.set('n',   '<leader>nf',       ':NERDTreeFind<CR>', { noremap = false
 vim.keymap.set('n',   '<leader>f',        ':Ack! ', { noremap = false})
 vim.keymap.set('n',   '<leader>=',        ':exe "vertical resize +30"<CR>', { noremap = false})
 vim.keymap.set('n',   '<leader>-',        ':exe "vertical resize -30"<CR>', { noremap = false})
+
+------------------------------------------------------------
+--   LSP
+------------------------------------------------------------
+local lspconfig = require('lspconfig')
+lspconfig.pyright.setup{}
+lspconfig.ruby_lsp.setup{
+  init_options = {
+    formatter = 'standard',
+    linters = { 'standard' },
+  }
+}
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
