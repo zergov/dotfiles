@@ -1,30 +1,13 @@
-ln -s $PWD/.gitconfig $HOME/.gitconfig
-ln -s $PWD/.tmux.conf $HOME/.tmux.conf
-ln -s $PWD/.pryrc $HOME/.pryrc
-
-# install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-# git commands
-ln -s $PWD/git-commands $HOME/git-commands
-echo 'export PATH=$PATH:$HOME/git-commands' >> ~/.zshrc
+ln -s $PWD/.gitconfig $HOME/.gitconfig
+ln -s $PWD/.tmux.conf $HOME/.tmux.conf
 
-# install tmux package manager
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-# nvim configuration
+# neovim setup
 mkdir -p $HOME/.config/nvim
-rm $HOME/.config/nvim/init.vim
 ln -s $PWD/.config/nvim/init.lua $HOME/.config/nvim/init.lua
 ln -s $PWD/.config/nvim/plugins.vim $HOME/.config/nvim/plugins.vim
-
-mkdir -p $HOME/.config/nvim/ftplugin
-ln -s $PWD/.config/nvim/ftplugin/ruby.lua $HOME/.config/nvim/ftplugin/ruby.lua
-ln -s $PWD/.config/nvim/ftplugin/c.lua $HOME/.config/nvim/ftplugin/c.lua
-ln -s $PWD/.config/nvim/ftplugin/rust.lua $HOME/.config/nvim/ftplugin/rust.lua
-
-# LSP servers installation
-npm install -g typescript-language-server typescript
+ln -s $PWD/.config/nvim/ftplugin $HOME/.config/nvim/ftplugin
 
 # install vim-plug and install all plugins
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
