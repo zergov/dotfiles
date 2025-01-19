@@ -1,3 +1,12 @@
+local lspconfig = require('lspconfig')
+lspconfig.pyright.setup{}
+lspconfig.ruby_lsp.setup{
+  init_options = {
+    formatter = 'standard',
+    linters = { 'standard' },
+  }
+}
+
 vim.g.mapleader = ' '
 
 vim.cmd("source ~/.config/nvim/plugins.vim")
@@ -62,6 +71,9 @@ vim.keymap.set('n',   '<leader>-',        ':exe "vertical resize -30"<CR>', { no
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    client.server_capabilities.semanticTokensProvider = nil
+
     vim.keymap.set('n', '<leader>ld', vim.lsp.buf.definition, { buffer = args.buf })
     vim.keymap.set('n', '<leader>lh', vim.lsp.buf.hover, { buffer = args.buf })
     vim.keymap.set('n', '<leader>lx', vim.lsp.buf.references, { buffer = args.buf })
@@ -74,4 +86,4 @@ function _G.install_plugins()
   vim.cmd(':qa')
 end
 
--- autocmd BufWritePre * %s/\s\+$//e " Clean trailling white spaces on save
+vim.cmd([[autocmd BufWritePre * %s/\s\+$//e]])

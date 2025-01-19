@@ -4,6 +4,8 @@ Plug 'tpope/vim-surround'   " surrrrrrrrrrrrrrrrrrrroundingssssssssssss
 Plug 'tpope/vim-fugitive'   " Git wrapper
 Plug 'tpope/vim-rhubarb'    " enable GBrowse for github repositories
 
+Plug 'neovim/nvim-lspconfig'
+
 Plug 'scrooloose/nerdtree'  " A tree explorer plugin for vim.
 map <C-n> :NERDTreeToggle<CR>
 
