@@ -1,3 +1,5 @@
+vim.cmd("source ~/.config/nvim/plugins.vim")
+
 local lspconfig = require('lspconfig')
 lspconfig.pyright.setup{}
 lspconfig.ruby_lsp.setup{
@@ -8,8 +10,6 @@ lspconfig.ruby_lsp.setup{
 }
 
 vim.g.mapleader = ' '
-
-vim.cmd("source ~/.config/nvim/plugins.vim")
 
 vim.o.ffs= "unix"
 vim.o.encoding= "utf-8"

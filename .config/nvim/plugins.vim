@@ -1,10 +1,10 @@
 call plug#begin('~/.config/nvim/plugged')
 
+Plug 'neovim/nvim-lspconfig'
+
 Plug 'tpope/vim-surround'   " surrrrrrrrrrrrrrrrrrrroundingssssssssssss
 Plug 'tpope/vim-fugitive'   " Git wrapper
 Plug 'tpope/vim-rhubarb'    " enable GBrowse for github repositories
-
-Plug 'neovim/nvim-lspconfig'
 
 Plug 'scrooloose/nerdtree'  " A tree explorer plugin for vim.
 map <C-n> :NERDTreeToggle<CR>
@@ -27,14 +27,6 @@ let g:ack_use_cword_for_empty_search = 1 " Any empty ack search will search for 
 Plug 'jeetsukumaran/vim-buffergator'  " buffer explorer
 Plug 'itchyny/lightline.vim'          " cool status bar
 Plug 'morhetz/gruvbox'                " colorscheme
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"	JS / Typescript
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "	HTML
