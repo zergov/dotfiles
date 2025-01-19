@@ -1,4 +1,4 @@
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh
 
 ln -s $PWD/.gitconfig $HOME/.gitconfig
 ln -s $PWD/.tmux.conf $HOME/.tmux.conf
@@ -10,8 +10,8 @@ ln -s $PWD/.config/nvim/plugins.vim $HOME/.config/nvim/plugins.vim
 ln -s $PWD/.config/nvim/ftplugin $HOME/.config/nvim/ftplugin
 
 # install vim-plug and install all plugins
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-nvim -c ":call v:lua.install_plugins()"
+curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+nvim -u .config/nvim/install.lua
 
 # Make sure default keybinds for fzf are loaded on login
 echo "source /usr/share/doc/fzf/examples/key-bindings.zsh" >> ~/.zshrc

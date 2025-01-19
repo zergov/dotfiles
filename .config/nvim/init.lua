@@ -84,9 +84,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-function _G.install_plugins()
-  vim.cmd(':PlugInstall')
-  vim.cmd(':qa')
-end
-
+------------------------------------------------------------
+--   other stuff
+------------------------------------------------------------
 vim.cmd([[autocmd BufWritePre * %s/\s\+$//e]])
