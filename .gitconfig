@@ -1,16 +1,8 @@
 [user]
-    email = lalandej.gg@gmail.com
-    name = Jonathan Lalande
+  email = lalandej.gg@gmail.com
+  name = Jonathan Lalande
 [core]
-    editor = nvim
-	commitGraph = true
+  editor = nvim
 [alias]
-    hide = update-index --assume-unchanged
-    unhide = update-index --no-assume-unchanged
-    l =  log --pretty=oneline --abbrev-commit
-    s = status
-    d = diff
-[diff]
-	algorithm = patience
-[gc]
-	writeCommitGraph = true
+  l =  log --pretty=oneline --abbrev-commit
+  s = status
