@@ -2,6 +2,7 @@ curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh
 
 ln -s $PWD/.gitconfig $HOME/.gitconfig
 ln -s $PWD/.tmux.conf $HOME/.tmux.conf
+ln -s $PWD/.alacritty.toml $HOME/.alacritty.toml
 
 # neovim setup
 mkdir -p $HOME/.config/nvim
