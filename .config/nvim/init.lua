@@ -56,7 +56,7 @@ vim.keymap.set('n',   '<CR>',             ':nohlsearch<CR><CR>', { noremap = tru
 vim.keymap.set('n',   '<leader>s',        ':w<CR>', { noremap = false})
 vim.keymap.set('n',   '<leader>p',        ':let @+ = expand("%")<CR>', { noremap = false}) -- yank path of current buffer
 vim.keymap.set('n',   '<leader>nf',       ':NERDTreeFind<CR>', { noremap = false}) -- focus current buffer's file in NERDTree
-vim.keymap.set('n',   '<leader>f',        ':Ack! ', { noremap = false})
+vim.keymap.set('n',   '<leader>f',        ':Rg ', { noremap = false})
 vim.keymap.set('n',   '<leader>=',        ':exe "vertical resize +30"<CR>', { noremap = false})
 vim.keymap.set('n',   '<leader>-',        ':exe "vertical resize -30"<CR>', { noremap = false})
 
