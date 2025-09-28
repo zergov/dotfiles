@@ -83,6 +83,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<leader>lx', vim.lsp.buf.references, { buffer = args.buf })
     vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, { buffer = args.buf })
     vim.keymap.set('n', '<leader>ls', vim.lsp.buf.document_symbol, { buffer = args.buf })
+    vim.keymap.set('n', '<leader>ldo', vim.diagnostic.open_float, { buffer = args.buf })
   end,
 })
 
