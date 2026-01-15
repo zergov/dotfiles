@@ -66,6 +66,7 @@ vim.keymap.set('n',   '<leader>-',        ':exe "vertical resize -30"<CR>', { no
 local lspconfig = require('lspconfig')
 lspconfig.pyright.setup{}
 lspconfig.gopls.setup{}
+lspconfig.ts_ls.setup{}
 -- lspconfig.ruby_lsp.setup{
   -- init_options = {
     -- formatter = 'standard',
